@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <!-- Coding by CodingLab | www.codinglabweb.com-->
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Login</title>
+<html lang="en">
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="assets/css/stylelogin.css" type="text/css">
-                
-        <!-- Boxicons CSS -->
-        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet' type="text/css">
-    </head>
-    <body>
-        <section class="container forms">
-            <div class="form login">
-                <div class="form-content">
-                    <header>Admin Login</header>
-                    <form action="/adminLogin" method="post">
-                        <div class="field input-field">
-                            <input type="email" placeholder="Email" class="input" name="email" id="email">
-                        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
 
-                        <div class="field input-field">
-                            <input type="password" placeholder="Password" class="password" name="password" id="password">
-                            <i class='bx bx-hide eye-icon'></i>
-                        </div>
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/stylelogin.css" type="text/css">
 
-                     <%
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet' type="text/css">
+</head>
 
-                        if(typeof message !=="undefined"){
-                            %>
-                         <h5 style="color:red;"><%= message %></h5>
-                            <%
-                          }
-                     %>
+<body>
+    <section class="container forms">
+        <div class="form login">
+            <div class="form-content">
+                <header>Admin Login</header>
+                <form action="/adminLogin" method="post">
+                    <div class="field input-field">
+                        <input type="email" placeholder="Email" class="input" name="email" id="email">
+                    </div>
+
+                    <div class="field input-field">
+                        <input type="password" placeholder="Password" class="password" name="password" id="password">
+                        <i class='bx bx-hide eye-icon'></i>
+                    </div>
+
+                    <% if(typeof message !=="undefined" ){ %>
+                        <h5 style="color:red;">
+                            <%= message %>
+                        </h5>
+                        <% } %>
 
 
-                        <div class="field button-field">
-                            <button type="submit" name="login">Login</button>
-                        </div>
-                    </form>
+                            <div class="field button-field">
+                                <button type="submit" name="login">Login</button>
+                            </div>
+                </form>
 
-                  
-                </div>
+
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- JavaScript -->
-        <script src="assets/js/script.js"></script>
-    </body>
+    <!-- JavaScript -->
+    <script src="assets/js/script.js"></script>
+</body>
+
 </html>

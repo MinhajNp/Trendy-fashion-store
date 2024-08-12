@@ -53,25 +53,6 @@ const adminRouter = require("./routes/admin");
 app.use("/", userRouter);
 app.use("/", adminRouter);
 
-// app.get("/getCropper",(req,res)=>{
-
-// res.render("index.ejs");
-// })
-
-// Google OAuth Routes
-// app.get('/auth/google',
-//   passport.authenticate('google', { scope: ['profile', 'email'] })
-// );
-
-// app.get('/auth/google/callback', 
-//   passport.authenticate('google', { failureRedirect: '/login' }),
-//   (req, res) => {
-//     // Successful authentication, redirect home.
-//     req.session.user_id = req.user._id;
-//     res.redirect('/');
-//   }
-// );
-
 const PORT = process.env.PORT || 8000
 app.listen(PORT, () => {
     console.log(`server started on:${PORT}`)

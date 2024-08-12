@@ -1,159 +1,169 @@
 <%- include ('userHeader.ejs')%>
-<!-- ...:::: Start Breadcrumb Section:::... -->
-<div class="breadcrumb-section breadcrumb-bg-color--golden">
-    <div class="mb-6">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                   
-                    <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
-                        <nav aria-label="breadcrumb">
-                            <ul>
-                                <li><a href="/">Home</a></li>
-                                <li class="active" aria-current="page">Wishlist</li>
-                            </ul>
-                        </nav>
+    <!-- ...:::: Start Breadcrumb Section:::... -->
+    <div class="breadcrumb-section breadcrumb-bg-color--golden">
+        <div class="mb-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
+                            <nav aria-label="breadcrumb">
+                                <ul>
+                                    <li><a href="/">Home</a></li>
+                                    <li class="active" aria-current="page">Wishlist</li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> 
-<!-- ...:::: End Breadcrumb Section:::... -->
+    <!-- ...:::: End Breadcrumb Section:::... -->
 
-<% if (wishlistItem.length === 0) { %>
+    <% if (wishlistItem.length===0) { %>
 
-    <!-- ...::::Start Empty Cart Section:::... -->
-    <div class="empty-cart-section section-fluid">
-        <div class="emptycart-wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-10 offset-md-1 col-xl-6 offset-xl-3">
-                        <div class="emptycart-content text-center">
-                            <div class="image">
-                                <img class="img-fluid" src="assets/images/emprt-cart/empty-cart.png" alt="">
+        <!-- ...::::Start Empty Cart Section:::... -->
+        <div class="empty-cart-section section-fluid">
+            <div class="emptycart-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-10 offset-md-1 col-xl-6 offset-xl-3">
+                            <div class="emptycart-content text-center">
+                                <div class="image">
+                                    <img class="img-fluid" src="assets/images/emprt-cart/empty-cart.png" alt="">
+                                </div>
+                                <h4 class="title">Your Wishlist is Empty</h4>
+                                <h6 class="sub-title">Sorry Mate... No item Found inside your wishlist!</h6>
+                                <a href="/" class="btn btn-lg btn-golden">Continue Shopping</a>
                             </div>
-                            <h4 class="title">Your Wishlist is Empty</h4>
-                            <h6 class="sub-title">Sorry Mate... No item Found inside your wishlist!</h6>
-                            <a href="/" class="btn btn-lg btn-golden">Continue Shopping</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div> <!-- ...::::End Empty Cart Section:::... -->
+        </div> <!-- ...::::End Empty Cart Section:::... -->
 
 
-<% } else { %>
+        <% } else { %>
 
- <!-- ...:::: Start Wishlist Section:::... -->
- <div class="wishlist-section">
-    <!-- Start Cart Table -->
-    <div class="wishlish-table-wrapper" data-aos="fade-up" data-aos-delay="0">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="table_desc">
-                        <div class="table_page table-responsive">
-                            <table>
-                                <!-- Start Wishlist Table Head -->
-                                <thead>
-                                    <tr>
-                                        <th class="product_remove">Delete</th>
-                                        <th class="product_thumb">Image</th>
-                                        <th class="product_name">Product</th>
-                                        <th class="product-price">Price</th>
-                                        <th class="product_stock">Stock Status</th>
-                                        <th class="product_addcart">Add To Cart</th>
-                                    </tr>
-                                </thead> <!-- End Cart Table Head -->
-                                <tbody>
-                                    <!-- Start Wishlist Single Item-->
-                                    <% wishlistItem.forEach((item,index )=> { %>
-                                    <tr>
-                                        <td class="product_remove"><a href="javascript:void(0);" onclick="confirmDelete('<%=item._id%>')"><i class="fa fa-trash-o"></i></a>
-                                        </td>
-                                        <td class="product_thumb"><a href="product-details-default.html"><img
-                                                    src="/assets/uploads/<%= item.productId.mainImage %>"
-                                                    alt=""></a></td>
-                                        <td class="product_name"><a href="productDetails?productId=<%= item.productId._id%>"><%=item.productId.name%></a></td>
-                                        <td class="product-price"><%=item.productId.afterDiscount%></td>
-                                        <td class="product_stock">
-                                            <% if (item.productId.stock === 0) { %>
-                                                Out of Stock
-                                                <% } else {%>
-                                                    In Stock
-                                                <% } %>
-                                        </td>
-                                        <td class="product_addcart"><button type="button" onclick="addToCart('<%= item.productId._id %>')"  class="btn btn-md btn-golden"
-                                                data-bs-toggle="modal" data-bs-target="#modalAddcart">Add To
-                                                Cart</button></td>
-                                    </tr> <!-- End Wishlist Single Item-->
-                                    <% }); %>
-                                   
-                                </tbody>
-                            </table>
+            <!-- ...:::: Start Wishlist Section:::... -->
+            <div class="wishlist-section">
+                <!-- Start Cart Table -->
+                <div class="wishlish-table-wrapper" data-aos="fade-up" data-aos-delay="0">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table_desc">
+                                    <div class="table_page table-responsive">
+                                        <table>
+                                            <!-- Start Wishlist Table Head -->
+                                            <thead>
+                                                <tr>
+                                                    <th class="product_remove">Delete</th>
+                                                    <th class="product_thumb">Image</th>
+                                                    <th class="product_name">Product</th>
+                                                    <th class="product-price">Price</th>
+                                                    <th class="product_stock">Stock Status</th>
+                                                    <th class="product_addcart">Add To Cart</th>
+                                                </tr>
+                                            </thead> <!-- End Cart Table Head -->
+                                            <tbody>
+                                                <!-- Start Wishlist Single Item-->
+                                                <% wishlistItem.forEach((item,index )=> { %>
+                                                    <tr>
+                                                        <td class="product_remove"><a href="javascript:void(0);"
+                                                                onclick="confirmDelete('<%=item._id%>')"><i
+                                                                    class="fa fa-trash-o"></i></a>
+                                                        </td>
+                                                        <td class="product_thumb"><a
+                                                                href="product-details-default.html"><img
+                                                                    src="/assets/uploads/<%= item.productId.mainImage %>"
+                                                                    alt=""></a></td>
+                                                        <td class="product_name"><a
+                                                                href="productDetails?productId=<%= item.productId._id%>">
+                                                                <%=item.productId.name%>
+                                                            </a></td>
+                                                        <td class="product-price">
+                                                            <%=item.productId.afterDiscount%>
+                                                        </td>
+                                                        <td class="product_stock">
+                                                            <% if (item.productId.stock===0) { %>
+                                                                Out of Stock
+                                                                <% } else {%>
+                                                                    In Stock
+                                                                    <% } %>
+                                                        </td>
+                                                        <td class="product_addcart"><button type="button"
+                                                                onclick="addToCart('<%= item.productId._id %>')"
+                                                                class="btn btn-md btn-golden" data-bs-toggle="modal"
+                                                                data-bs-target="#modalAddcart">Add To
+                                                                Cart</button></td>
+                                                    </tr> <!-- End Wishlist Single Item-->
+                                                    <% }); %>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- End Cart Table -->
-</div> <!-- ...:::: End Wishlist Section:::... -->
-<% } %>
+                </div> <!-- End Cart Table -->
+            </div> <!-- ...:::: End Wishlist Section:::... -->
+            <% } %>
 
-<!-- ========================================================================================================= -->
-<script>
- function confirmDelete(itemId) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do you want to remove this product from wishlist?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, remove it!',
-        cancelButtonText: 'No, keep it',
-        customClass: {
-                    confirmButton: 'sweetAlert-custom-button'
-                 }
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = `/removeWishlistProduct?itemId=${itemId}`;
-        }
-      });
-    }
+                <!-- ========================================================================================================= -->
+                <script>
+                    function confirmDelete(itemId) {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: 'Do you want to remove this product from wishlist?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes, remove it!',
+                            cancelButtonText: 'No, keep it',
+                            customClass: {
+                                confirmButton: 'sweetAlert-custom-button'
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = `/removeWishlistProduct?itemId=${itemId}`;
+                            }
+                        });
+                    }
 
 
 
-async function addToCart(productId) {
-    console.log(productId);
-    try {
-        const quantity =1;
-        const response = await axios.post('/cart', { productId, quantity });
-        console.log(response);
-        if (response.data.success) {
-            await Swal.fire({
-                icon: "success",
-                title: "Success",
-                text: response.data.message,
-                customClass: {
-                    confirmButton: 'sweetAlert-custom-button'
-                 }
-            })
-        } else {
-            await Swal.fire({
-                icon: "error",
-                title: "Sorry",
-                text: response.data.message,
-                customClass: {
-                    confirmButton: 'sweetAlert-custom-button'
-                 }
-            })
-            
-        }
-    } catch (error) {
-        console.error("Error occurred:", error);
-    }
-}
-</script>
+                    async function addToCart(productId) {
+                        console.log(productId);
+                        try {
+                            const quantity = 1;
+                            const response = await axios.post('/cart', { productId, quantity });
+                            console.log(response);
+                            if (response.data.success) {
+                                await Swal.fire({
+                                    icon: "success",
+                                    title: "Success",
+                                    text: response.data.message,
+                                    customClass: {
+                                        confirmButton: 'sweetAlert-custom-button'
+                                    }
+                                })
+                            } else {
+                                await Swal.fire({
+                                    icon: "error",
+                                    title: "Sorry",
+                                    text: response.data.message,
+                                    customClass: {
+                                        confirmButton: 'sweetAlert-custom-button'
+                                    }
+                                })
 
-<%- include('userFooter.ejs') %>
+                            }
+                        } catch (error) {
+                            console.error("Error occurred:", error);
+                        }
+                    }
+                </script>
+
+                <%- include('userFooter.ejs') %>

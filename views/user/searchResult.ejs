@@ -1,93 +1,97 @@
 <%- include ('userHeader.ejs')%>
 
-<% if (products.length <1) { %>
+    <% if (products.length <1) { %>
 
-    <!-- ...::::Start Empty Cart Section:::... -->
-    <div class="empty-cart-section section-fluid">
-        <div class="emptycart-wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-10 offset-md-1 col-xl-6 offset-xl-3">
-                        <div class="emptycart-content text-center">
-                            <div class="image">
-                                <img class="img-fluid" src="assets/images/emprt-cart/empty-cart.png" alt="">
+        <!-- ...::::Start Empty Cart Section:::... -->
+        <div class="empty-cart-section section-fluid">
+            <div class="emptycart-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-10 offset-md-1 col-xl-6 offset-xl-3">
+                            <div class="emptycart-content text-center">
+                                <div class="image">
+                                    <img class="img-fluid" src="assets/images/emprt-cart/empty-cart.png" alt="">
+                                </div>
+                                <h4 class="title">No Product Found</h4>
+                                <h6 class="sub-title">Sorry Mate... No item Found!</h6>
+                                <a href="/" class="btn btn-lg btn-golden">Continue Shopping</a>
                             </div>
-                            <h4 class="title">No Product Found</h4>
-                            <h6 class="sub-title">Sorry Mate... No item Found!</h6>
-                            <a href="/" class="btn btn-lg btn-golden">Continue Shopping</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div> <!-- ...::::End Empty Cart Section:::... -->
+        </div> <!-- ...::::End Empty Cart Section:::... -->
 
 
-<% } else { %>
+        <% } else { %>
 
-<!-- Start Tab Wrapper -->
-<div class="sort-product-tab-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="tab-content">
-                    <!-- Start Grid View Product -->
-                    <div class="tab-pane active show sort-layout-single" id="layout-4-grid">
-                        <div class="row">
-                            <% products?.forEach((item,index) =>{ %>
-                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
-                                <!-- Start Product Default Single Item -->
-                                <div class="product-default-single-item product-color--golden"
-                                    data-aos="fade-up" data-aos-delay="0">
-                                    <div class="image-box">
-                                        <a href="productDetails?productId=<%= item._id %>" class="image-link">
-                                            <img src="/assets/uploads/<%= item.mainImage %>"
-                                                alt="">
-                                            <img src="/assets/uploads/<%= item.image[0] %>"
-                                                alt="">
-                                        </a>
-                                        
-                                    </div>
-                                    <div class="content">
-                                        <div class="content-left">
-                                            <h6 class="title"><a
-                                                    href="productDetails?productId=<%= item._id %>"><%= item.name%></a></h6>
-                                                    <div class="review-star">
-                                                        <!-- <strong>Rating:</strong> -->
-                                                        <% for (let i = 1; i <= 5; i++) { %>
-                                                        <% if (i <= item.rating) { %>
-                                                            <!-- <i class=" fill ion-android-star"></i> -->
-                                                        <i class="fa fa-star text-warning"></i>
-                                                        <% } else { %>
-                                                            <!-- <i class=" empty ion-android-star"></i> -->
-                                                    <i class="fa fa-star text-muted"></i>
-                                                        <% } %>
-                                                        <% } %>
-                                                        
+            <!-- Start Tab Wrapper -->
+            <div class="sort-product-tab-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content">
+                                <!-- Start Grid View Product -->
+                                <div class="tab-pane active show sort-layout-single" id="layout-4-grid">
+                                    <div class="row">
+                                        <% products?.forEach((item,index)=>{ %>
+                                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                                                <!-- Start Product Default Single Item -->
+                                                <div class="product-default-single-item product-color--golden"
+                                                    data-aos="fade-up" data-aos-delay="0">
+                                                    <div class="image-box">
+                                                        <a href="productDetails?productId=<%= item._id %>"
+                                                            class="image-link">
+                                                            <img src="/assets/uploads/<%= item.mainImage %>" alt="">
+                                                            <img src="/assets/uploads/<%= item.image[0] %>" alt="">
+                                                        </a>
+
                                                     </div>
-                                        </div>
-                                        <div class="content-right">
-                                            <span class="price font-weight-bold">₹<%= item.afterDiscount%></span>
-                                            <span class="text-danger"> <%= item.discountPrice%>%off</span>
-                                        </div>
+                                                    <div class="content">
+                                                        <div class="content-left">
+                                                            <h6 class="title"><a
+                                                                    href="productDetails?productId=<%= item._id %>">
+                                                                    <%= item.name%>
+                                                                </a></h6>
+                                                            <div class="review-star">
+                                                                <!-- <strong>Rating:</strong> -->
+                                                                <% for (let i=1; i <=5; i++) { %>
+                                                                    <% if (i <=item.rating) { %>
+                                                                        <!-- <i class=" fill ion-android-star"></i> -->
+                                                                        <i class="fa fa-star text-warning"></i>
+                                                                        <% } else { %>
+                                                                            <!-- <i class=" empty ion-android-star"></i> -->
+                                                                            <i class="fa fa-star text-muted"></i>
+                                                                            <% } %>
+                                                                                <% } %>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="content-right">
+                                                            <span class="price font-weight-bold">₹<%=
+                                                                    item.afterDiscount%></span>
+                                                            <span class="text-danger">
+                                                                <%= item.discountPrice%>%off
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!-- End Product Default Single Item -->
+                                            </div>
+                                            <% }); %>
+
 
                                     </div>
-                                </div>
-                                <!-- End Product Default Single Item -->
-                            </div>
-                            <% }); %>
-                           
-                           
-                        </div>
-                    </div> <!-- End Grid View Product -->
-                    <!-- Start List View Product -->
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-</div> <!-- End Tab Wrapper -->
-<% } %>
+                                </div> <!-- End Grid View Product -->
+                                <!-- Start List View Product -->
 
- 
-<%- include('userFooter.ejs') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Tab Wrapper -->
+            <% } %>
+
+
+                <%- include('userFooter.ejs') %>

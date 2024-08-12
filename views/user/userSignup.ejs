@@ -1,56 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
-     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-     <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
+    <!-- ::::::::::::::Favicon icon::::::::::::::-->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/png">
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/stylelogin.css">
     <!-- Boxicons CSS -->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
     <div class="LogoText">
         <a href="/">
-            <h1 >TRENDY</h1>
+            <h1>TRENDY</h1>
             <p><small>For Latest Fashion Trends</small></p>
-        </a>    
-     </div>
+        </a>
+    </div>
     <section class="container forms">
         <div class="form login">
             <div class="form-content">
                 <header>Signup</header>
                 <form id="signupForm" action="/signup" method="post" onsubmit="return validateForm()">
                     <div class="field input-field">
-                        <input type="text" placeholder="Full name" class="input" name="username" >
+                        <input type="text" placeholder="Full name" class="input" name="username">
                         <h6 id="usernameError" style="color:red;"></h6>
                     </div>
                     <div class="field input-field">
-                        <input type="email" placeholder="Email" class="input" name="email" >
+                        <input type="email" placeholder="Email" class="input" name="email">
                         <h6 id="emailError" style="color:red;"></h6>
                     </div>
                     <div class="field input-field">
-                        <input type="tel" placeholder="Mobile number" class="mobile-contact-info" name="mobile" >
+                        <input type="tel" placeholder="Mobile number" class="mobile-contact-info" name="mobile">
                         <h6 id="mobileNumberError" style="color:red;"></h6>
                     </div>
                     <div class="field input-field">
-                        <input type="password" placeholder="Create password" id="password" class="password" name="password" >
+                        <input type="password" placeholder="Create password" id="password" class="password"
+                            name="password">
                         <h6 id="passwordError" style="color:red;"></h6>
                     </div>
                     <div class="field input-field">
-                        <input type="password" placeholder="Confirm password" id="confirmPassword" class="password" name="confirmpassword">
+                        <input type="password" placeholder="Confirm password" id="confirmPassword" class="password"
+                            name="confirmpassword">
                         <i class='bx bx-hide eye-icon'></i>
                         <h6 id="confirmPasswordError" style="color:red;"></h6>
                     </div>
-                    <% if (typeof message !== "undefined") { %>
-                        <h6 style="color:red;"><%= message %></h6>
-                    <% } %>
-                    <div class="field button-field">
-                        <button type="submit">Signup</button>
-                    </div>
+                    <% if (typeof message !=="undefined" ) { %>
+                        <h6 style="color:red;">
+                            <%= message %>
+                        </h6>
+                        <% } %>
+                            <div class="field button-field">
+                                <button type="submit">Signup</button>
+                            </div>
                 </form>
                 <div class="form-link">
                     <span>Already have an account? <a href="/login">Login</a></span>
@@ -92,47 +98,47 @@
             const hasUpperCase = /[A-Z]/.test(password);
             const hasLowerCase = /[a-z]/.test(password);
             const hasNumbers = /\d/.test(password);
-            
-            
+
+
 
             if (!username.match(usernamePattern)) {
-             
+
                 document.getElementById('usernameError').innerHTML = "Username is required.";
                 return false;
             }
 
             if (!email.match(emailPattern)) {
-                
+
                 document.getElementById('emailError').innerHTML = "Please enter a valid email address.";
                 return false;
             }
 
             if (!mobile.match(mobilePattern)) {
-                
-                document.getElementById('mobileNumberError').innerHTML ="Please enter a valid 10-digit mobile number."
+
+                document.getElementById('mobileNumberError').innerHTML = "Please enter a valid 10-digit mobile number."
                 return false;
             }
 
             if (password.length < minLength) {
-                document.getElementById('passwordError').innerHTML ="Password must be at least 8 characters long."
+                document.getElementById('passwordError').innerHTML = "Password must be at least 8 characters long."
                 return false;
             }
             if (!hasUpperCase) {
-                document.getElementById('passwordError').innerHTML ="Password must contain at least one uppercase letter."
+                document.getElementById('passwordError').innerHTML = "Password must contain at least one uppercase letter."
                 return false;
             }
             if (!hasLowerCase) {
-                document.getElementById('passwordError').innerHTML ="PPassword must contain at least one lowercase letter."
-                return false; 
-            }
-            if (!hasNumbers) {
-                document.getElementById('passwordError').innerHTML ="Password must contain at least one number."
+                document.getElementById('passwordError').innerHTML = "PPassword must contain at least one lowercase letter."
                 return false;
             }
-            
+            if (!hasNumbers) {
+                document.getElementById('passwordError').innerHTML = "Password must contain at least one number."
+                return false;
+            }
+
             if (password !== confirmPassword) {
-                
-                document.getElementById('confirmPasswordError').innerHTML ="Passwords do not match."
+
+                document.getElementById('confirmPasswordError').innerHTML = "Passwords do not match."
                 return false;
             }
 
@@ -142,10 +148,11 @@
 
         // Check if localStorage has the item "countdown"
         if (localStorage.getItem("countdown") !== null) {
-                // If "countdown" exists, remove it
-                localStorage.removeItem("countdown");
-            }
+            // If "countdown" exists, remove it
+            localStorage.removeItem("countdown");
+        }
 
     </script>
 </body>
+
 </html>
