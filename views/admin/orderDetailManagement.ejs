@@ -1,0 +1,450 @@
+<%- include('adminHeader.ejs')%>
+
+
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+              <h1>TRENDY</h1>
+            </a>
+            <!-- <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div> -->
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/adminPanel"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/adminProducts"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Product Management</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item">
+                    <a class="menu-link" href="/users"> <i class="icon material-icons md-person"></i>
+                        <span class="text">User Management</span>
+                    </a>
+                
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/adminCategory"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Category Management</span> </a>
+                </li>
+
+                <li class="menu-item active">
+                    <a class="menu-link" href="/adminOrders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Order Management</span>
+                    </a>
+                </li> 
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="/adminCoupon"> <i class="icon material-icons md-redeem"></i>
+                        <span class="text">Coupons</span>
+                    </a>
+                   
+                </li>
+           
+                
+                
+                <li class="menu-item">
+                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Reviews</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Banner Management</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Settings</span>
+                    </a>
+                    
+                </li>
+                
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                    </div>
+                    <datalist id="search_terms">
+                        <option value="Products">
+                        <option value="New orders">
+                        <option value="Apple iphone">
+                        <option value="Ahmed Hassan">
+                    </datalist>
+                </form>
+            </div>
+            <div class="col-nav">
+                <a class="dropdown-item text-danger" href="/adminLogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                  
+              </div>
+        </header>
+
+
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Order detail</h2>
+                    <p>Details for Order ID: <%=order._id%></p>
+                </div>
+            </div>
+            <div class="card">
+                <header class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
+                            <span>
+                                <i class="material-icons md-calendar_today"></i> <b><%= order.orderDate.toLocaleDateString() %></b>
+                            </span> <br>
+                            <small class="text-muted">Order ID: <%=order._id%></small>
+                        </div>
+                        <div class="col-lg-6 col-md-6 ms-auto text-md-end">
+                            <form id="orderStatusForm">
+                              <input type="hidden" name="orderId" id="oId" value="<%= order._id %>">
+                              <select class="form-select d-inline-block mb-lg-0 mb-15 mw-200" name="orderStatus" <%= ['Canceled By Admin', 'Canceled By User', 'Return Completed'].includes(order.orderStatus) ? 'disabled' : '' %>>
+
+                                <option value="Placed" <%= order.orderStatus == "Placed" ? 'selected' : '' %>>Placed</option>
+                                <option value="Shipped" <%= order.orderStatus == "Shipped" ? 'selected' : '' %>>Shipped</option>
+                                <option value="Delivered" <%= order.orderStatus == "Delivered" ? 'selected' : '' %>>Delivered</option>
+                              </select>
+                              <button type="button" class="btn btn-primary" onclick="updateOrderStatus()" <%= ['Canceled By Admin', 'Canceled By User'].includes(order.orderStatus) ? 'disabled' : '' %>>Save</button>
+                              <!-- <a class="btn btn-secondary print ms-2" href="#"><i class="icon material-icons md-print"></i></a> -->
+                            </form>
+                            <% if (['Canceled By Admin', 'Canceled By User', 'Return Completed'].includes(order.orderStatus)) { %>
+                                <div class="alert alert-warning mt-3">
+                                  <strong>Notice:</strong> This order has been canceled and cannot be updated.
+                                </div>
+                              <% } %>
+                          </div>
+                          
+                    </div>
+                </header> <!-- card-header end// -->
+                <div class="card-body">
+                    <div class="row mb-50 mt-20 order-info-wrap">
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-person"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Customer</h6>
+                                    <p class="mb-1">
+                                        Name : <%=order.userId.name %> <br> Email : <%=order.userId.email%> <br> Contact : +91 <%=order.userId.mobile%>
+                                    </p>
+                                    <!-- <a href="#">View profile</a> -->
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-local_shipping"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Order info</h6>
+                                    <p class="mb-1">
+                                        Shipping: Fargo express <br> Pay method: <%=order.paymentType%> <br> Status: <%=order.orderStatus%> <br>
+                                        <% if (order.cancelReason!=null) { %>
+                                            Cancelation Reason: <%=order.cancelReason%>
+                                        <% } %>
+                                    </p>
+                                    <!-- <a href="#">Download info</a> -->
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-place"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Deliver to</h6>
+                                    <% order.userId.address.forEach((address,index) => { %>
+                                        <% if (address.address ==order.address) { %>
+                                    <p class="mb-1">
+                                        <%=address.address%> address <br>
+                                        <%=address.name%>,+91<%=address.number%>,<br>
+                                        <%=address.landmark%>,<%=address.city%>,<br><%=address.state%>,<%=address.country%> <br> <%=address.pincode%>
+                                    </p>
+                                    <% } %>
+                                    <% }); %>
+                                    <!-- <a href="#">View profile</a> -->
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                    </div> <!-- row // -->
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="40%">Product</th>
+                                            <th width="20%">Unit Price</th>
+                                            <th width="20%">Quantity</th>
+                                            <th width="20%" class="text-end">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% order.items.forEach((item,index) => { %>
+                                        <tr>
+                                            <td>
+                                                <a class="itemside" href="#">
+                                                    <div class="left">
+                                                        <img src="/assets/uploads/<%= item.product.mainImage %>" width="40" height="40" class="img-xs" alt="Item">
+                                                    </div>
+                                                    <div class="info"> <%=item.product.name%></div>
+                                                </a>
+                                            </td>
+                                            <td> INR <%=item.product.afterDiscount%> </td>
+                                            <td> <%=item.quantity%> </td>
+                                            <td class="text-end"> INR <%=item.price %> </td>
+                                        </tr>
+                                        <% }); %>
+                                       
+                                        <tr>
+                                            <td colspan="4">
+                                                <article class="float-end">
+                                                    <dl class="dlist">
+                                                        <dt>Subtotal:</dt>
+                                                        <dd>INR <%=subTotalAmount%></dd>
+                                                    </dl>
+                                                    <dl class="dlist">
+                                                        <dt>Coupon Disount:</dt>
+                                                        <dd>INR <%=couponDiscount%>.00</dd>
+                                                    </dl>
+                                                    <dl class="dlist">
+                                                        <dt>Shipping cost:</dt>
+                                                        <dd>INR <%=order.deliveryCharge%>.00</dd>
+                                                    </dl>
+                                                    <dl class="dlist">
+                                                        <dt>Grand total:</dt>
+                                                        <dd> <b class="h5">INR <%=order.totalAmount%>.00</b> </dd>
+                                                    </dl>
+                                                    <dl class="dlist">
+                                                        <dt class="text-muted">Payment Status:</dt>
+                                                        <dd>
+                                                            <% if (order.paymentType !="Cash on Delivery") { %>
+                                                                <span class="badge rounded-pill alert-success text-success">Payment done</span>
+                                                                <% } else if(order.orderStatus == "Delivered" || order.orderStatus == "Return Rejected") { %> 
+                                                                    <span class="badge rounded-pill alert-success text-success">Payment done</span>  
+                                                                <% } else if(order.orderStatus == "Placed"||"Shipped") { %> 
+                                                                    <span class="badge rounded-pill alert-warning">Pending</span> 
+                                                                <% } else if(order.orderStatus == "Return Completed" || order.orderStatus == "Return Rejected") { %> 
+                                                                     <span class="badge rounded-pill alert-success text-success">Payment Refunded</span>   
+                                                                <% } %>
+                                                            
+                                                        </dd>
+                                                    </dl>
+                                                </article>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- table-responsive// -->
+                        </div> <!-- col// -->
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-4">
+                            <div class="box shadow-sm bg-light">
+                                <h6 class="mb-15">Requests</h6>
+                                
+                               
+                                <% if (order.requests && order.requests.length > 0) { %>
+                                    <strong class="text-brand mb-3 mt-2 text-center">Return request</strong><br
+                                    
+                                    <span style="font-size: 14px; color: black;">Reason :</span>
+                                        <p><%= order.requests[0].reason  %></p>
+                                    <% if (order.requests[0].status =="Accepted" || order.requests[0].status =="Rejected" ) { %>
+                                        <button class="btn btn-primary" disabled>Request <%=order.requests[0].status%></button>
+                                    <%}else{%>
+                                        <button type="button" class="btn btn-primary" 
+                                        data-order-id="<%= order._id %>" 
+                                        data-user-id="<%= order.userId._id %>" 
+                                        onclick="acceptedRequest(this)">
+                                        Accept
+                                    </button>
+                                    <button type="button" class="btn btn-primary" 
+                                    data-order-id="<%= order._id %>" 
+                                    onclick="rejectedRequest(this)">
+                                    Reject
+                                </button>
+
+                                    <% } %>
+                                 <% } %>
+                            </div>
+                            <!-- <div class="h-25 pt-4">
+                                <div class="mb-3">
+                                    <label>Notes</label>
+                                    <textarea class="form-control" name="notes" id="notes" placeholder="Type some note"></textarea>
+                                </div>
+                                <button class="btn btn-primary">Save note</button>
+                            </div> -->
+                        </div> <!-- col// -->
+                    </div>
+                </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+        </section> <!-- content-main end// -->
+
+
+<script>
+  function acceptedRequest(button) {
+        // Retrieve values from data attributes
+        const orderId = button.dataset.orderId;
+        const userId = button.dataset.userId;
+
+        console.log("Function called with orderId:", orderId, "and userId:", userId); // Debugging line
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to return this order?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, return it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log("Confirmed, sending Axios request with orderId:", orderId, "and userId:", userId); // Debugging line
+
+                axios.post('/adminReturnOrder', {
+                    orderId: orderId,
+                    userId: userId
+                })
+                .then(response => {
+                    console.log("Axios request successful:", response); // Debugging line
+
+                    Swal.fire(
+                        'Returned!',
+                        'The order has been returned.',
+                        'success'
+                    ).then(() => {
+                        location.reload();
+                    });
+                })
+                .catch(error => {
+                    console.error("Axios request error:", error); // Debugging line
+
+                    Swal.fire(
+                        'Error!',
+                        'There was an error returning the order.',
+                        'error'
+                    );
+                });
+            }
+        });
+    }
+    
+// Reject Return Request
+function rejectedRequest(button) {
+        // Retrieve values from data attributes
+        const orderId = button.dataset.orderId;
+        
+
+        console.log("Function called with orderId:", orderId); // Debugging line
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to reject this request?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, return it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+              
+
+                axios.post('/rejectReturnOrder', {
+                    orderId: orderId   
+                })
+                .then(response => {
+                    console.log("Axios request successful:", response); // Debugging line
+
+                    Swal.fire(
+                        'Returned!',
+                        'The request has been rejected.',
+                        'success'
+                    ).then(() => {
+                        location.reload();
+                    });
+                })
+                .catch(error => {
+                    console.error("Axios request error:", error); // Debugging line
+
+                    Swal.fire(
+                        'Error!',
+                        'There was an error rejecting the request.',
+                        'error'
+                    );
+                });
+            }
+        });
+    }
+
+
+    // <!-- Update Order Status -->
+    async function updateOrderStatus() {
+      const form = document.getElementById('orderStatusForm');
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+  
+      try {
+        const response = await axios.post('/updateOrderStatus', data);
+        if (response.data.success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Order status updated successfully!',
+            customClass: {
+                        confirmButton: 'sweetAlert-custom-button'
+                    }
+          }).then(() => {
+            location.reload(); // Reload the page to reflect the changes
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: response.data.message || 'There was an error updating the order status.',
+            customClass: {
+                        confirmButton: 'sweetAlert-custom-button'
+                    }
+          });
+        }
+      } catch (error) {
+        console.error('There was a problem with the axios request:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'There was an error updating the order status.',
+          customClass: {
+                        confirmButton: 'sweetAlert-custom-button'
+                    }
+        });
+      }
+    }
+
+
+    
+  </script>
+
+<%- include('adminFooter.ejs')%>

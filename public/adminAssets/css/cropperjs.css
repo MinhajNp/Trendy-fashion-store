@@ -1,0 +1,18 @@
+#imageContainer {
+    width: 100%;
+    max-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#imageContainer img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#preview0 img, #preview1 img, #preview2 img, #preview3 img {
+    width: 100%;
+    height: auto;
+}

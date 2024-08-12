@@ -1,0 +1,45 @@
+<%- include('userHeader') %>
+
+
+
+
+
+
+
+<div class="main-container">
+<div class="container">
+    <h3 class="heading mt-4" style="margin-bottom: 0;">Wallet History</h3>
+    <% if (user.wallet.length==0) { %>
+        <div style="height: 200px; margin-top: 20px;">
+            <h3>No History found!</h3>
+        </div>
+        
+    <% } else { %> 
+    <div class="table-responsive mt-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Remark</th>
+                    <th scope="col">Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% user.wallet.reverse().forEach(entry => { %>
+                    <tr>
+                        <td><%= entry.createdAt.toDateString() %></td>
+                        <td>₹ <%= entry.amount %></td>
+                        <td><%= entry.remark %></td>
+                        <td><%= entry.type %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <% } %>   
+</div>
+</div>
+
+
+<%- include('userFooter') %>

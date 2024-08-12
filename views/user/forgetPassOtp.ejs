@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com-->
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> OTP varification </title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="assets/css/stylelogin.css">
+                
+        <!-- Boxicons CSS -->
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+                        
+    </head>
+    <body>
+        <section class="container forms">
+            <div class="form login">
+                <div class="form-content">
+                    <p class="p-orng">please enter the OTP sent to your email</p>
+                    <form action="/forgetPasswordOTP" method="post" id="formId">
+                         <div class="field input-field">
+                            <input type="tel" placeholder="Enter OTP" class="input" name="otp" id="otp" onblur="validateOTP()">
+                            
+                        </div>
+                        <%
+
+                        if(typeof message !=="undefined"){
+                            %>
+                         <h5 id="errMessage" style="color:red;"><%= message %></h5>
+                            <%
+                          }
+                     %>
+                     <p id="otpMessage"></p>
+                        <div class="field button-field">
+                            <button>Submit</button>
+                        </div>
+                        <a href="/resendOtp?forgetPassword=forgretPassword" style="margin-top: 3%; text-decoration: none; display: none;" id="resendLink">Not received your code? Resend
+                            OTP</a>
+                        <div id="countdown" style="margin-top: 3%;color:red;">00:60</div>
+                        <!-- <p >Not received your code?<a href="">Resend OTP</a></p> -->
+                    </form>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="media-options">
+                    <a href="/forgetPassword" class="field google">
+                        <span>Go Back</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- JavaScript -->
+        <script src="assets/js/script.js"></script>
+
+        <script>
+            //   localStorage.removeItem("countdown");
+            
+                const countdownElem = document.getElementById("countdown");
+            let countdown = localStorage.getItem("countdown") || 60; // start countdown at 60 seconds if no value is found in local storage
+            countdownElem.textContent = `00:${countdown}`; // set initial countdown text
+            const countdownInterval = setInterval(() => {
+              countdown--; // decrement countdown by 1
+              countdownElem.textContent = `00:${countdown}`; // update countdown text
+              if (countdown === 0) {
+                clearInterval(countdownInterval); // clear the countdown interval
+                countdownElem.style.display = "none"; // hide the countdown element
+                const resendLink = document.getElementById("resendLink");
+                resendLink.style.display = "block";
+                localStorage.removeItem("countdown"); // remove countdown value from local storage
+              } else {
+                localStorage.setItem("countdown", countdown); // store countdown value in local storage
+              }
+            }, 1000); // update countdown every second (1000ms)
+    
+            document.getElementById('form-id').addEventListener('submit', event => {
+                const otp = document.getElementById('otp').value
+    
+                if (otp.length < 6) {
+                    event.preventDefault();
+                }
+            });
+            //  }
+           
+            
+
+            
+        </script>
+    </body>
+</html>

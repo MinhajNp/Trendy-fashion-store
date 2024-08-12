@@ -1,0 +1,1003 @@
+<%- include ('adminHeader.ejs')%>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+              <h1>TRENDY</h1>
+            </a>
+           <link rel="stylesheet" href="/node_modules/cropperjs/dist/cropper.min.css">
+           <link rel="stylesheet" href="/cropperJs/style.css">
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/adminPanel"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item active ">
+                    <a class="menu-link" href="/adminProducts"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Product Management</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="/users"> <i class="icon material-icons md-person"></i>
+                        <span class="text">User Management</span>
+                    </a>
+                
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/adminCategory"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Category Management</span> </a>
+                </li>
+
+                <li class="menu-item ">
+                    <a class="menu-link" href="/adminOrders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Order Management</span>
+                    </a>
+                </li> 
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="/adminCoupon"> <i class="icon material-icons md-redeem"></i>
+                        <span class="text">Coupons</span>
+                    </a>
+                   
+                </li>
+                
+                
+                <li class="menu-item">
+                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Reviews</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Banner Management</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Settings</span>
+                    </a>
+                    
+                </li>
+                
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                    </div>
+                    <datalist id="search_terms">
+                        <option value="Products">
+                        <option value="New orders">
+                        <option value="Apple iphone">
+                        <option value="Ahmed Hassan">
+                    </datalist>
+                </form>
+            </div>
+            <div class="col-nav">
+                <a class="dropdown-item text-danger" href="/adminLogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                  
+              </div>
+        </header>
+      
+
+
+
+
+<section class="content-main">
+   
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Products Management</h2>
+            <p>Manage Products</p>
+        </div>
+        
+
+        <!-- Dropdown to select a category for sorting -->
+        <div class="btn-group me-2">
+            
+
+            <!-- <button type="button" class="btn btn-primary btn-sm rounded" data-bs-toggle="modal"
+                data-bs-target="#myModalAdd">Add Product</button> -->
+        </div>
+    </div>
+
+    <!-- Product add Modal -->
+<div class="modal fade text-start" id="myModalAdd" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Add Products</h5>
+                <button class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBodyContent">
+                <form action="/adminAddProduct" id="addProductForm" method="post" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label class="form-label">Product Name</label>
+                        <input class="form-control" type="text" name="productName" id="addProductName">
+                        <p style="color: red;" id="error-name"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Price</label>
+                        <input class="form-control" id="addPrice" type="number" name="price">
+                        <p style="color: red;" id="error-price"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Discount Price in Percentage</label>
+                        <input class="form-control" id="productDiscountPrice" type="number" name="discountPrice">
+                        <p style="color: red;" id="discountPriceError"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Categories</label>
+                        <select class="form-select" id="addCategories" name="category">
+                            <% categories.forEach(category=> { %>
+                            <option value="<%= category._id %>">
+                                <%= category.name %>
+                            </option>
+                            <% }); %>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Collections</label>
+                        <select class="form-select" id="addCollections" name="collection">
+                            <option value="Men">Men</option>
+                            <option value="Women">Women</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Cloth</label>
+                        <select class="form-select" id="addCloth" name="cloth">
+                            <option value="Silk">Silk</option>
+                            <option value="Cotton">Cotton</option>
+                            <option value="Polyester">Polyester</option>
+                            <option value="Leather">Leather</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <input class="form-control" id="addDescription" type="text" name="description">
+                        <p style="color: red;" id="error-description"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Stock</label>
+                        <input class="form-control" id="addStock" type="number" name="stock">
+                        <p style="color: red;" id="error-stock"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Add Main Image</label>
+                        <p style="color: red;">Image required*</p>
+                        <input class="form-control" id="fileInput0" type="file" name="mainImage" onchange="getImagePreview(event,0)" required>
+                        <div id="preview0" class="row mb-4"></div>
+                        <div id="imageContainer0" class="mb-4"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Add Image 2</label>
+                        <p style="color: red;">Image required *</p>
+                        <input class="form-control" id="fileInput1" type="file" name="images" onchange="getImagePreview(event,1)" required>
+                        <div id="preview1" class="row mb-4"></div>
+                        <div id="imageContainer1" class="mb-4"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Add Image 3</label>
+                        <input class="form-control" id="fileInput2" type="file" name="images" onchange="getImagePreview(event,2)">
+                        <div id="preview2" class="row mb-4"></div>
+                        <div id="imageContainer2" class="mb-4"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Add Image 4</label>
+                        <input class="form-control" id="fileInput3" type="file" name="images" onchange="getImagePreview(event,3)">
+                        <div id="preview3" class="row mb-4"></div>
+                        <div id="imageContainer3" class="mb-4"></div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <button type="button" id="cropButton" class="btn btn-primary">Crop</button>
+                    </div>
+
+                   
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" id="addProductBtn" type="submit">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Product add Modal End -->
+
+
+  
+
+
+    <!-- Modal for editing product details -->
+<!-- Edit Product Modal -->
+<div class="modal fade text-start" id="editModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                <button class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="EditProductForm" method="post" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label class="form-label">Product Name</label>
+                        <input class="form-control" type="text" name="productName" id="editProductName" required>
+                        <p style="color: red;" id="errorName"></p>
+                    </div>
+                    <input class="form-control" type="text" name="productId" id="editProductId" style="display: none;">
+                    <div class="mb-3">
+                        <label class="form-label">Price</label>
+                        <input class="form-control" id="editPrice" type="number" name="price" required>
+                        <p style="color: red;" id="errorPrice"></p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Discount Price in Percentage</label>
+                        <input class="form-control" id="editDiscountPrice" type="number" name="discountPrice">
+                        <p style="color: red;" id="errorDiscountPrice"></p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Categories</label>
+                        <select class="form-select" id="editCategories" name="category">
+                          <% categories.forEach(category=> { %>
+                            <option value="<%= category._id %>">
+                              <%= category.name %>
+                            </option>
+                            <% }); %>
+                        </select>
+                      </div>
+                    <div class="mb-3">
+                        <label class="form-label">Collections</label>
+                        <select class="form-select" id="editCollections" name="collection">
+                            <option value="Men">Men</option>
+                            <option value="Women">Women</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Cloth</label>
+                        <select class="form-select" id="editCloth" name="cloth">
+                            <option value="Silk">Silk</option>
+                            <option value="Cotton">Cotton</option>
+                            <option value="Polyester">Polyester</option>
+                            <option value="Leather">Leather</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <input class="form-control" id="editDescription" type="text" name="description" required>
+                        <p style="color: red;" id="errorDescription"></p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Stock</label>
+                        <input class="form-control" id="editStock" type="number" name="stock" required>
+                        <p style="color: red;" id="errorStock"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Main Image</label>
+                        <div id="currentMainImage" class="row mb-4"></div>
+                        <input class="form-control" id="editMainImage" type="file" name="mainImage" onchange="editImagePreview(event, 1)" style="display: none;">
+                        <div id="1preview" class="row mb-4"></div>
+                        <div id="editImageContainer1" class="mb-4"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Additional Image 1</label>
+                        <div id="currentAdditionalImagesOne" class="row mb-4"></div>
+                        <input class="form-control" id="editAdditionalImagesOne" type="file" name="images" onchange="editImagePreview(event, 2)" style="display: none;">
+                        <div id="2preview" class="row mb-4"></div>
+                        <div id="editImageContainer2" class="mb-4"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Additional Image 2</label>
+                        <div id="currentAdditionalImagesTwo" class="row mb-4"></div>
+                        <input class="form-control" id="editAdditionalImagesTwo" type="file" name="images" onchange="editImagePreview(event, 3)" style="display: none;">
+                        <div id="3preview" class="row mb-4"></div>
+                        <div id="editImageContainer3" class="mb-4"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Additional Image 3</label>
+                        <div id="currentAdditionalImagesThree" class="row mb-4"></div>
+                        <input class="form-control" id="editAdditionalImagesThree" type="file" name="images" onchange="editImagePreview(event, 4)" style="display: none;">
+                        <div id="4preview" class="row mb-4"></div>
+                        <div id="editImageContainer4" class="mb-4"></div>
+                    </div>
+                    <div class="row mb-4">
+                        <button type="button" id="editCropButton" class="btn btn-primary">Crop</button>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Product Modal End -->
+
+
+
+
+ 
+
+
+    
+
+    <div class="card mb-4">
+        <header class="card-header">
+            <div class="row align-items-center">
+                <div class="btn-group me-2">
+                    <form action="adminProducts" method="GET">
+                        <div class="input-group">
+                            <input type="number" name="page" value="<%=currentPage%>" hidden>
+                            <select class="form-select" name="category" id="category-filter">
+                                <option value="">All Categories</option>
+                                <% categories.forEach(category => { %>
+                                <option value="<%= category._id %>"
+                                    <%= category._id.toString() === selectedCategory ? 'selected' : '' %>>
+                                    <%= category.name %>
+                                </option>
+                                <% }) %>
+                            </select>
+                            <select class="form-select" id="collection-filter" name="collection">
+                                <option value="">All Collection</option>
+                                <option value="Men" <%=selectedCollection=="Men"?'selected':''%>>Men</option>
+                                <option value="Women" <%=selectedCollection=="Women"?'selected':''%> >Women</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-sm rounded me-2"
+                                id="filter-button">Filter</button>
+                        </div>
+                    </form>
+                    
+                    <button type="button" class="btn btn-primary btn-sm rounded" data-bs-toggle="modal"
+                data-bs-target="#myModalAdd">Add Product</button>
+                    
+                </div>
+
+            </div>
+        </header> <!-- card-header end// -->
+
+
+        <!-- Product list -->
+        <table class="table table-bordered">
+            <thead class="text-center">
+                <tr>
+                    <th>Sl No</th>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Description</th> 
+                    <th>Collection</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-center align-middle">
+                <% if (product.length > 0) { %>
+                    <% product.forEach((data, index) => { %>
+                    <tr>
+                        <td class="align-middle"><%= (currentPage - 1) * perPage + index + 1 %></td>
+                        <td class="align-middle">
+                            <img src="/assets/uploads/<%= data.mainImage %>" alt="" style="max-width: 60px; max-height: 60px;">
+                        </td>
+                        <td class="align-middle" style="width: 250px;"><%= data.name %></td>
+                        <td class="align-middle"><%= data.description %></td>
+                        <td class="align-middle"><%= data.collection %></td>
+                        <td class="align-middle">₹<%= data.afterDiscount %></td>
+                        <td class="align-middle"><%= data.discountPrice %>%</td>
+                        <td class="align-middle"><%= data.category ? data.category.name : 'no category' %></td>
+                        <td class="align-middle">
+                            <span class="badge <%= data.delete ? 'bg-danger' : 'bg-success' %>">
+                                <%= data.delete ? 'Not Published' : 'Published' %>
+                            </span>
+                        </td>
+                        <td class="align-middle">
+                            <span class="<%= data.stock === 0 ? 'text-danger' : 'text-success' %>">
+                                <%= data.stock %>
+                                <%= data.stock === 0 ? ' (Out of Stock)' : '' %>
+                            </span>
+                        </td>
+                        <td class="d-flex justify-content-center mt-3">
+                            <div class="pe-2">
+                                <button onclick="listProduct('<%= data._id %>')" class="btn btn-sm publish-button <%= data.delete ? 'btn-success' : 'btn-danger' %>" data-bs-toggle="modal" data-bs-target="#publishModal">
+                                    <%= data.delete ? 'Publish' : 'unpublish' %>
+                                </button>
+                            </div>
+                            <div>
+                                <button class="btn btn-sm text-light edit-button" style="background-color: #088178;" data-bs-toggle="modal" data-id="<%= data._id %>" data-name="<%= data.name %>" data-description="<%= data.description %>" data-collection="<%= data.collection %>" data-stock="<%= data.stock %>" data-price="<%= data.price %>"data-discountPrice="<%=data.discountPrice %>" data-category="<%= data.category._id %>" data-cloth="<%=data.cloth%>" data-mainImage="<%= data.mainImage%>" data-images="<%= data.image.join(',') %>">Edit</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="11" class="text-center">No products available</td>
+                    </tr>
+                <% } %>
+            </tbody>
+            
+        </table>
+    </div> <!-- card end// -->
+
+    
+
+    
+
+    <script src="/javascripts/cropperjs.js"></script>
+
+    
+<!-- Add product  -->
+    
+    <script>
+
+// Add product validation and form submission
+// Function to validate product name
+function validateProductName(name) {
+    const regex = /^[a-zA-Z0-9- ]+$/; // Allows letters, numbers, hyphens, and spaces
+    return regex.test(name);
+}
+
+// Function to validate description
+function validateDescription(description) {
+    return description.trim().length > 10; // Checks if description has more than 10 characters
+}
+
+// Function to validate stock
+function validateStock(stock) {
+    return stock > 0; // Stock must be greater than zero
+}
+
+// Function to validate price
+function validatePrice(price) {
+    return price > 0; // Price must be greater than zero
+}
+
+// Function to validate discount price
+function validateDiscountPrice(discountPrice) {
+    return discountPrice >= 0 && discountPrice <= 100; // Discount price must be between 0 and 100
+}
+
+// Event listener for form submission
+document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    let valid = true;
+
+    // Retrieve form input values
+    const productName = document.getElementById('addProductName').value;
+    const description = document.getElementById('addDescription').value;
+    const stock = document.getElementById('addStock').value;
+    const price = document.getElementById('addPrice').value;
+    const discountPrice = document.getElementById('productDiscountPrice').value;
+
+    // Validate product name
+    if (!validateProductName(productName)) {
+        document.getElementById('error-name').textContent = 'Invalid product name.';
+        valid = false;
+    } else {
+        document.getElementById('error-name').textContent = '';
+    }
+
+    // Validate description
+    if (!validateDescription(description)) {
+        document.getElementById('error-description').textContent = 'Description must be more than 10 characters.';
+        valid = false;
+    } else {
+        document.getElementById('error-description').textContent = '';
+    }
+
+    // Validate stock
+    if (!validateStock(stock)) {
+        document.getElementById('error-stock').textContent = 'Stock must be greater than zero.';
+        valid = false;
+    } else {
+        document.getElementById('error-stock').textContent = '';
+    }
+
+    // Validate price
+    if (!validatePrice(price)) {
+        document.getElementById('error-price').textContent = 'Price must be greater than zero.';
+        valid = false;
+    } else {
+        document.getElementById('error-price').textContent = '';
+    }
+
+    // Validate discount price
+    if (!validateDiscountPrice(discountPrice)) {
+        document.getElementById('discountPriceError').textContent = 'Discount percentage must be between 0 and 100.';
+        valid = false;
+    } else {
+        document.getElementById('discountPriceError').textContent = '';
+    }
+
+    // If all validations pass, submit the form via Axios
+    if (valid) {
+        const formData = new FormData(e.target); // Get form data
+
+        // Send form data using Axios
+        try {
+            const response = await axios.post('/adminAddProduct', formData);
+
+            // Handle response
+            if (response.data.success) {
+                // Show success message using SweetAlert
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Product added successfully.',
+                    icon: 'success',
+                    customClass: {
+                        confirmButton: 'sweetAlert-custom-button'
+                    }
+                }).then(() => {
+                    location.reload(); // Reload the page to reflect changes (optional)
+                });
+            } else {
+                // Show error message using SweetAlert
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Failed to add product.',
+                    icon: 'error',
+                    customClass: {
+                        confirmButton: 'sweetAlert-custom-button'
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // Show error message using SweetAlert
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while adding the product.',
+                icon: 'error',
+                customClass: {
+                    confirmButton: 'sweetAlert-custom-button'
+                }
+            });
+        }
+    }
+});
+// End Add product validation and form submission
+
+
+
+// list unlist product
+async function listProduct(productId) {
+    // Show confirmation dialog
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to continue this action?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, continue!',
+      cancelButtonText: 'No',
+      customClass: {
+        confirmButton: 'sweetAlert-custom-button',
+        cancelButton: 'sweetAlert-custom-button'
+      }
+    });
+
+    // If confirmed, proceed with listing the product
+    if (result.isConfirmed) {
+      console.log("inside listProduct");
+      try {
+        const response = await axios.post('/listProduct', { productId });
+
+        if (response.data.success) {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: response.data.message,
+            customClass: {
+              confirmButton: 'sweetAlert-custom-button'
+            }
+          });
+          location.reload(); // Reload the page to reflect the changes
+        } else {
+          await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: response.data.message,
+            customClass: {
+              confirmButton: 'sweetAlert-custom-button'
+            }
+          });
+          location.reload(); // Reload the page to reflect the changes
+        }
+      } catch (error) {
+        await Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'There was an error listing the product.',
+          customClass: {
+            confirmButton: 'sweetAlert-custom-button'
+          }
+        });
+        console.error(error);
+        location.reload(); // Reload the page to reflect the changes
+      }
+    }
+  }
+    
+    // EditProduct content loading
+    document.addEventListener('DOMContentLoaded', () => {
+    const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+
+    document.querySelectorAll('.edit-button').forEach(button => {
+        button.addEventListener('click', event => {
+            const button = event.currentTarget;
+            const productId = button.getAttribute('data-id');
+            const productName = button.getAttribute('data-name');
+            const productDescription = button.getAttribute('data-description');
+            const productCollection = button.getAttribute('data-collection');
+            const productStock = button.getAttribute('data-stock');
+            const productPrice = button.getAttribute('data-price');
+            const productDiscoundPrice = button.getAttribute('data-discountPrice');
+            const productCategory = button.getAttribute('data-category');
+            const productCloth = button.getAttribute('data-cloth');
+            const mainImage = button.getAttribute('data-mainImage')
+            const productImages = button.getAttribute('data-images').split(',');
+           
+
+            // Populate form fields with product data
+            document.getElementById('editProductId').value = productId;
+            document.getElementById('editProductName').value = productName;
+            document.getElementById('editDescription').value = productDescription;
+            document.getElementById('editCollections').value = productCollection;
+            document.getElementById('editCategories').value=productCategory;
+            document.getElementById('editCloth').value=productCloth;
+            
+            document.getElementById('editStock').value = productStock;
+            document.getElementById('editPrice').value = productPrice;
+            document.getElementById('editDiscountPrice').value = productDiscoundPrice;
+
+            // Populate current images
+            const currentMainImage = document.getElementById('currentMainImage');
+            const currentAdditionalImagesOne = document.getElementById('currentAdditionalImagesOne');
+            const currentAdditionalImagesTwo = document.getElementById('currentAdditionalImagesTwo');
+            const currentAdditionalImagesThree = document.getElementById('currentAdditionalImagesThree');
+            let isPresent =false;
+            if(mainImage){
+                isPresent=true;
+                document.getElementById("editMainImage").style.display="none"
+                currentMainImage.innerHTML = `
+            <div class="col-md-3">
+                <img src="/assets/uploads/${mainImage}" alt="${productName} Image" style="max-width: 225px; height: 200px;">
+            <button type="button" class="imgremove" onclick="removeMainImage( '${0}', '${productId}')">Remove</button>
+            </div>  
+                `
+            }else{
+                // document.getElementById("editCropButton").style.display="block"
+                isPresent=false;
+                currentMainImage.innerHTML = '<p>No main image.</p>';   
+                document.getElementById("editMainImage").style.display="block"
+            }
+           
+                // currentMainImagesTwo.innerHTML = productImages[1] ? `<img src="/assets/uploads/${productImages[1]}" alt="${productName} Image" style="max-width: 225px; height: 200px;">` : '<img src="/placeholder-image.png" alt="No Image" style="max-width: 100%; height: auto;">';
+
+            if (productImages[0]) {
+                document.getElementById("editAdditionalImagesOne").style.display="none"
+                currentAdditionalImagesOne.innerHTML = `
+                <div class="col-md-3">
+                <img src="/assets/uploads/${productImages[0]}" alt="${productName} Image" style="max-width: 225px; height: 200px;">
+                <button type="button" class="imgremove" onclick="removeImage('${0}', '${productId}')">Remove</button>
+                </div>
+                `
+            }
+            else{
+                    currentAdditionalImagesOne.innerHTML = '<p>No additional image 1.</p>';
+                    document.getElementById("editAdditionalImagesOne").style.display="block"
+            }
+            if (productImages[1]) {
+                document.getElementById("editAdditionalImagesTwo").style.display="none"
+                currentAdditionalImagesTwo.innerHTML =  `
+                <div class="col-md-3">
+                <img src="/assets/uploads/${productImages[1]}" alt="${productName} Image" style="max-width: 225px; height: 200px;">
+                <button type="button" class="imgremove" onclick="removeImage( '${1}', '${productId}')">Remove</button>
+                </div>
+                `
+            }else {
+                currentAdditionalImagesTwo.innerHTML = '<p>No additional image 2.</p>';
+                document.getElementById("editAdditionalImagesTwo").style.display="block"
+            }
+            if (productImages[2]) {
+                document.getElementById("editAdditionalImagesThree").style.display="none";
+                document.getElementById("editCropButton").style.display="none"
+                currentAdditionalImagesThree.innerHTML = `
+                <div class="col-md-3">
+                <img src="/assets/uploads/${productImages[2]}" alt="${productName} Image" style="max-width: 225px; height: 200px;">
+                <button type="button" class="imgremove" onclick="removeImage( '${2}', '${productId}')">Remove</button>
+                </div>
+                ` 
+            }else {
+                document.getElementById("editCropButton").style.display="block"
+                currentAdditionalImagesThree.innerHTML = '<p>No additional image 3.</p>';
+                document.getElementById("editAdditionalImagesThree").style.display="block";
+            }
+            if(isPresent==false){
+                document.getElementById("editCropButton").style.display="block"
+            }
+
+            // Show modal
+            editModal.show();
+        });
+    });
+});
+// End edit product content loading
+
+
+          
+// edit product validation and form submission
+function validateName(name) {
+    const regex = /^[a-zA-Z0-9- ]+$/; // Allows letters, numbers, hyphens, and spaces
+    return regex.test(name);
+}
+
+function validateDescription(description) {
+    return description.trim().length > 10; // Checks if description has more than 10 characters
+}
+
+function validateStock(stock) {
+    return stock > 0;
+}
+
+function validatePrice(price) {
+    return price > 0;
+}
+
+function validateDiscountPrice(discountPrice) {
+    return discountPrice >= 0 && discountPrice <= 100;
+}
+
+document.getElementById('EditProductForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    let valid = true;
+
+    const name = document.getElementById('editProductName').value;
+    const description = document.getElementById('editDescription').value;
+    const stock = document.getElementById('editStock').value;
+    const price = document.getElementById('editPrice').value;
+    const discountPrice = document.getElementById('editDiscountPrice').value;
+
+    if (!validateName(name.trim())) {
+        document.getElementById('errorName').textContent = 'Invalid product name. Only letters, numbers, and hyphens are allowed.';
+        valid = false;
+    } else {
+        document.getElementById('errorName').textContent = '';
+    }
+
+    if (!validateDescription(description)) {
+        document.getElementById('errorDescription').textContent = 'Invalid description. Only letters, numbers, and spaces are allowed.';
+        valid = false;
+    } else {
+        document.getElementById('errorDescription').textContent = '';
+    }
+
+    if (!validateStock(stock)) {
+        document.getElementById('errorStock').textContent = 'Stock must be greater than zero.';
+        valid = false;
+    } else {
+        document.getElementById('errorStock').textContent = '';
+    }
+
+    if (!validatePrice(price)) {
+        document.getElementById('errorPrice').textContent = 'Price must be greater than zero.';
+        valid = false;
+    } else {
+        document.getElementById('errorPrice').textContent = '';
+    }
+
+    if (!validateDiscountPrice(discountPrice)) {
+        document.getElementById('errorDiscountPrice').textContent = 'Discount price must be between 0 and 100.';
+        valid = false;
+    } else {
+        document.getElementById('errorDiscountPrice').textContent = '';
+    }
+
+    if (valid) {
+        const formData = new FormData(e.target); // Get form data
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to save the changes?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!',
+            customClass: {
+                confirmButton: 'sweetAlert-custom-button'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post('/editProduct', formData)
+                    .then(response => {
+                        if (response.data.success) {
+                            Swal.fire({
+                                title: 'Saved!',
+                                text: 'Your changes have been saved.',
+                                icon: 'success',
+                                customClass: {
+                                    confirmButton: 'sweetAlert-custom-button'
+                                }
+                            }).then(() => {
+                                location.reload(); // Reload the page to reflect the changes
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Failed!',
+                                text: 'Failed to update product.',
+                                icon: 'error',
+                                customClass: {
+                                    confirmButton: 'sweetAlert-custom-button'
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'An error occurred.',
+                            icon: 'error',
+                            customClass: {
+                                confirmButton: 'sweetAlert-custom-button'
+                            }
+                        });
+                    });
+            }
+        });
+    }
+});
+// End edit product validation and form submission
+
+            
+
+
+// deleteProductImage
+
+
+// Remove MainImage
+function removeMainImage(index, productId ) {
+    const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+    // Show a confirmation dialog using SweetAlert
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You want to remove this image?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it!',
+        cancelButtonText: 'Cancel',
+        customClass: {
+             confirmButton: 'sweetAlert-custom-button'
+                }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // User confirmed, send a DELETE request to the server to remove the image
+
+            
+            axios.delete(`/removeMainImage?index=${index}&productId=${productId}`)
+                .then(response => {
+                    // Handle the response from the server if needed
+                    console.log(response.data);
+                  
+                     location.reload(); // Reload the page to reflect the changes
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('There was a problem with the axios request:', error);
+                });
+        } else {
+            // User canceled, do nothing
+        }
+    });
+}
+
+// Remove otherImage
+function removeImage(index, productId ) {
+    // Show a confirmation dialog using SweetAlert
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You want to remove this image?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it!',
+        cancelButtonText: 'Cancel',
+        customClass: {
+               confirmButton: 'sweetAlert-custom-button'
+             }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // User confirmed, send a DELETE request to the server to remove the image
+
+           
+            axios.delete(`/removeImage?index=${index}&productId=${productId}`)
+                .then(response => {
+                    // Handle the response from the server if needed
+                    console.log(response.data);
+                   
+                     location.reload(); // Reload the page to reflect the changes
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('There was a problem with the axios request:', error);
+                });
+        } else {
+            // User canceled, do nothing
+        }
+    });
+}
+
+
+    
+    </script>
+    
+    
+    <div class="pagination-area mt-30 mb-50">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+            <% if (currentPage> 1) { %>
+                <li class="page-item"><a class="page-link" href="/adminProducts?page=<%= currentPage - 1 %>&&currentCategFilter=<%=selectedCategory%>&&currentFilter=<%=selectedCollection%>">Previous</a>
+                </li>
+                <% } %>
+                <% for (let i=1; i <=totalPages; i++) { %>
+                    <li class="page-item <%= currentPage === i ? 'active' : '' %>"><a class="page-link"
+                        href="/adminProducts?page=<%= i %>&&currentCategFilter=<%=selectedCategory%>&&currentFilter=<%=selectedCollection%>">
+                        <%= i %>
+                    </a></li>
+                    <% } %>
+                    <% if (currentPage < totalPages) { %>
+                        <li class="page-item"><a class="page-link" href="/adminProducts?page=<%= currentPage + 1 %>&&currentCategFilter=<%=selectedCategory%>&&currentFilter=<%=selectedCollection%>">Next</a>
+                        </li>
+                        <% } %>
+            </ul>
+        </nav>
+    </div>
+
+  <!-- Include Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    
+ 
+   
+
+</section> <!-- content-main end// -->
+
+<%- include ('AdminFooter.ejs')%>

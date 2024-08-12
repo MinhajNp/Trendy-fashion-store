@@ -1,0 +1,402 @@
+<%- include ('adminHeader.ejs')%>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="#" class="brand-wrap">
+              <h1>TRENDY</h1>
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item active">
+                    <a class="menu-link" href="/adminPanel"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a class="menu-link" href="/adminProducts"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Product Management</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="/users"> <i class="icon material-icons md-person"></i>
+                        <span class="text">User Management</span>
+                    </a>
+                
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/adminCategory"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Category Management</span> </a>
+                </li>
+
+                <li class="menu-item ">
+                    <a class="menu-link" href="/adminOrders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Order Management</span>
+                    </a>
+                </li> 
+                
+                <li class="menu-item ">
+                    <a class="menu-link" href="/adminCoupon"> <i class="icon material-icons md-redeem"></i>
+                        <span class="text">Coupons</span>
+                    </a>
+                   
+                </li>
+                
+                
+                <li class="menu-item">
+                    <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
+                        <span class="text">Reviews</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item">
+                    <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Banner Management</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
+                        <span class="text">Settings</span>
+                    </a>
+                    
+                </li>
+                
+            </ul>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <form class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                    </div>
+                    <datalist id="search_terms">
+                        <option value="Products">
+                        <option value="New orders">
+                        <option value="Apple iphone">
+                        <option value="Ahmed Hassan">
+                    </datalist>
+                </form>
+            </div>
+            <div class="col-nav">
+                <a class="dropdown-item text-danger" href="/adminLogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                  
+              </div>
+        </header>
+
+       
+                
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Dashboard </h2>
+            <p>Whole data about your business here</p>
+        </div>
+            <div class="col-lg-6 col-md-6 ms-auto text-md-end">
+                <form action="adminPanel" method="GET">
+                  
+                  <select class="form-select d-inline-block mb-lg-0 mb-15 mw-200" name="type" >
+
+                    <option value="Daily" <%= selectedType == "Daily" ? 'selected' : '' %>>Daily</option>
+                    <option value="Weekly" <%= selectedType == "Weekly" ? 'selected' : '' %>>Weekly</option>
+                    <option value="Monthly" <%= selectedType == "Monthly" ? 'selected' : '' %>>Monthly</option>
+                    <option value="Yearly" <%= selectedType == "Yearly" ? 'selected' : '' %>>Yearly</option>
+                  </select>
+                  <button type="submit" class="btn btn-primary">Filter</button>
+                  
+                </form>
+            </div>
+    </div>
+    <% if ( typeof orderData =="undefined") { %>
+        <h1>Hai admin</h1>
+        <h2>No Data Available to view in dashboard</h2>
+    <% }else {%>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card card-body mb-4">
+                <article class="icontext">
+                    <span class="icon icon-sm rounded-circle bg-primary-light"><i class="text-primary material-icons md-monetization_on"></i></span>
+                    <div class="text">
+                        <h6 class="mb-1 card-title">Revenue</h6>
+                        <span>₹<%= orderData.totalRevenue %></span>
+                        <span class="text-sm">
+                            Shipping fees are not included
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-body mb-4">
+                <article class="icontext">
+                    <span class="icon icon-sm rounded-circle bg-success-light"><i class="text-success material-icons md-local_shipping"></i></span>
+                    <div class="text">
+                        <h6 class="mb-1 card-title">Orders</h6> <span><%= orderData.totalOrders %></span>
+                        <span class="text-sm">
+                            Excluding orders in transit
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-body mb-4">
+                <article class="icontext">
+                    <span class="icon icon-sm rounded-circle bg-warning-light"><i class="text-warning material-icons md-qr_code"></i></span>
+                    <div class="text">
+                        <h6 class="mb-1 card-title">Products</h6> <span><%= orderData.productCount %></span>
+                        <span class="text-sm">
+                            In <%=orderData.categoryCount%> Categories
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-body mb-4">
+                <article class="icontext">
+                    <span class="icon icon-sm rounded-circle bg-info-light"><i class="text-info material-icons md-shopping_basket"></i></span>
+                    <div class="text">
+                        <h6 class="mb-1 card-title">Monthly Earning</h6> <span>₹<%=orderData.monthlyRevenue%></span>
+                        <span class="text-sm">
+                            Based in your local time.
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="mb-4 d-flex justify-content-evenly">
+        <a href="/pdf/?type=daily" class="btn btn-md btn-primary" download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>Daily
+                report</a>
+        <a href="/pdf/?type=weekly" class="btn btn-md btn-primary" download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>Weekly
+                 report</a>            
+        <a href="/pdf/?type=monthly" class="btn btn-md btn-primary"download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>Monthly
+                  report</a>
+        <a href="/pdf/?type=yearly" class="btn btn-md btn-primary" download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>Yearly
+                  report</a>
+
+                  <form id="reportForm">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-md btn-primary" download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>specific date
+                            report</button>
+                      <label for="date">Select Date:</label>
+                      <input type="date" id="date" name="date" required>
+                    </div>
+                  </form>
+       
+    </div>
+    <div class="row">
+        <div class="col-xl-8 col-lg-12">
+            <div class="card mb-4">
+
+        <!-- Hidden input to store sales data -->
+        <input type="hidden" id="salesData" value='<%= JSON.stringify(orderData.salesData) %>' />
+        <h5 class="card-title">Sale statistics</h5>
+                <canvas id="salesChart"></canvas>
+                <article class="card-body">
+                    <!-- <h5 class="card-title">Sale statistics</h5>
+                    <canvas id="myChart" height="120px"></canvas> -->
+                    <!-- Display Top Selling Products -->
+  <div class="container-fluid">
+    <h2 class="mt-5 mb-3">TOP SELLING PRODUCTS</h2>
+    <div class="row">
+        <% orderData.topSellingProducts.forEach(product => { %>
+            <div class="col-md-4 mb-4">
+                <div class="card cardHover">
+                  <img src="/assets/uploads/<%= product.mainImage %>" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= product.name %></h5>
+                        <p class="card-text">Total Quantity Sold: <%= product.totalQuantity %></p>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<!-- Display Top Selling Categories -->
+<div class="container-fluid mb-0">
+    <h2 class="mt-5 mb-3">TOP SELLING CATEGORIES</h2>
+    <div class="row ">
+        <% orderData.topSellingCategories.forEach(category => { %>
+            <div class="col-md-4 mb-4">
+                <div class="card cardHover">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= category.name %></h5>
+                        <p class="card-text">Total Quantity Sold: <%= category.totalQuantity %></p>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+                </article>
+            </div>
+            
+        </div>
+        <div class="col-xl-4 col-lg-12">
+            <div class="card mb-4">
+                <article class="card-body">
+                    <h5 class="card-title">New Members</h5>
+                    <div class="new-member-list">
+                        <% users.forEach((user, index) => { %>
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="d-flex align-items-center">
+                                <!-- <img src="adminAssets/imgs/people/avatar4.jpg" alt="" class="avatar"> -->
+                                <div>
+                                    <h6><%= user.name %></h6>
+                                    <p class="text-muted font-xs">
+                                        <%= user.email %>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- <a href="#" class="btn btn-xs"><i class="material-icons md-add"></i> Add</a> -->
+                        </div>
+                        <% }) %>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <header class="card-header">
+            <h4 class="card-title">Latest orders</h4>
+           
+        </header>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div class="table-responsive">
+                    <table class="table align-middle table-nowrap mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" class="text-center">
+                                    
+                                </th>
+                                <th class="align-middle" scope="col">Order ID</th>
+                                <th class="align-middle" scope="col">Billing Name</th>
+                                <th class="align-middle" scope="col">Date</th>
+                                <th class="align-middle" scope="col">Total</th>
+                                <th class="align-middle" scope="col">Payment Status</th>
+                                <th class="align-middle" scope="col">Payment Method</th>
+                                <th class="align-middle" scope="col">View Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orders.forEach((order,index) => { %>
+                            <tr>
+                                <td class="text-center">
+                                   
+                                </td>
+                                <td><a href="#" class="fw-bold">#<%= order._id%></a> </td>
+                                <td><%= order.userId.name%></td>
+                                <td>
+                                    <%= order.orderDate.toLocaleDateString() %>
+                                </td>
+                                <td>
+                                    $<%= order.totalAmount %>
+                                </td>
+                                <td>
+                                    <% if (order.paymentType !="Cash on Delivery") { %>
+                                        <span class="badge badge-pill alert-success text-success">Payment done</span>
+                                        <% } else if(order.orderStatus == "Delivered" || order.orderStatus == "Return Rejected") { %> 
+                                            <span class="badge badge-pill alert-success text-success">Payment done</span>  
+                                        <% } else if(order.orderStatus == "Placed"||"Shipped") { %> 
+                                            <span class="badge badge-pill alert-warning">Pending</span> 
+                                        <% } else if(order.orderStatus == "Return Completed" || order.orderStatus == "Return Rejected") { %> 
+                                             <span class="badge badge-pill alert-success text-success">Payment Refunded</span>   
+                                        <% } %>
+                                    
+                                </td>
+                                <td>
+                                    <i class="material-icons md-payment font-xxl text-muted mr-5"></i> 
+                                    <% if (order.paymentType =="Cash on Delivery") { %>
+                                        Cash on Delivery
+                                    <% }else { %>
+                                        RazorPay  
+                                    <% } %>     
+                                </td>
+                                <td>
+                                    <a href="/orderDetails?orderId=<%=order._id%>" class="btn btn-xs"> View details</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- table-responsive end// -->
+        </div>
+    </div>
+    <% } %>
+
+    <script>
+        // Retrieve the sales data from the hidden input field
+        const salesData = JSON.parse(document.getElementById('salesData').value);
+    
+        const labels = salesData.map(data => data._id);
+        const revenueData = salesData.map(data => data.totalRevenue);
+    
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Total Revenue',
+              data: revenueData,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              fill: true,
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Date'
+                }
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Revenue'
+                }
+              }
+            }
+          }
+        });
+      </script>
+
+<script>
+    document.getElementById('reportForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const date = document.getElementById('date').value;
+      if (!date) {
+        alert('Please select a date.');
+        return;
+      }
+
+      // Create a URL with query parameters
+      const url = `/pdf?type=specific&date=${encodeURIComponent(date)}`;
+      
+      // Trigger the download
+      window.open(url, '_blank');
+    });
+  </script>
+    <%- include ('adminFooter.ejs')%>
