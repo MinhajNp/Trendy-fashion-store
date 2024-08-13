@@ -317,8 +317,7 @@
                                         <% if (order.requests[0].status=="Accepted" ||
                                             order.requests[0].status=="Rejected" ) { %>
                                             <button class="btn btn-primary" disabled>Request
-                                                <%=order.requests[0].status%>
-                                            </button>
+                                                <%=order.requests[0].status%></button>
                                             <%}else{%>
                                                 <button type="button" class="btn btn-primary"
                                                     data-order-id="<%= order._id %>"

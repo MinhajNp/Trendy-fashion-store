@@ -1,460 +1,424 @@
 <%- include ('userHeader.ejs')%>
 
-    <div class="container">
+<div class="container">
+    
 
-
-        <section class="content-main">
-            <div class="content-header">
-                <div>
-                    <h2 class="content-title card-title">Order detail</h2>
-                    <!-- <p>Details for Order ID: <%=order._id%></p>
+    <section class="content-main">
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Order detail</h2>
+                <!-- <p>Details for Order ID: <%=order._id%></p>
               
                     <i class="fa fa-calendar" aria-hidden="true"></i> <b><%= order.orderDate.toLocaleDateString() %></b>
                 -->
-                </div>
             </div>
-            <div class="card">
-                <header class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
-                            <span>
-                                <i class="fa fa-calendar" aria-hidden="true"></i> <b>
-                                    <%= order.orderDate.toLocaleDateString() %>
-                                </b>
-                            </span> <br>
-                            <small class="text-muted">Order ID: <%=order._id%></small>
-                        </div>
-
-
+        </div>
+        <div class="card">
+            <header class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
+                        <span>
+                            <i class="fa fa-calendar" aria-hidden="true"></i> <b><%= order.orderDate.toLocaleDateString() %></b>
+                        </span> <br>
+                        <small class="text-muted">Order ID: <%=order._id%></small>
                     </div>
-                </header> <!-- card-header end// -->
-                <div class="card-body">
-                    <div class="row mb-50 mt-20 order-info-wrap">
-
-                        <div class="col-md-4">
-                            <article class="">
-
-                                <div class="text">
-                                    <h6 class="mb-1"><i class="fas fa-shipping-fast"></i> Order info</h6>
-                                    <p class="mb-1">
-                                        Shipping: Fargo express <br> Pay method: <%=order.paymentType%> <br> Status:
-                                            <%=order.orderStatus%> <br>
-                                                <% if (order.cancelReason!=null) { %>
-                                                    Cancelation Reason: <%=order.cancelReason%>
-                                                        <% } %>
-                                    </p>
-                                    <a class="btn btn-md btn-black-default-hover"
-                                        href="/downloadOrderInvoice?orderId=<%=order._id%>">download invoice</a>
-
-                                </div>
-                            </article>
-                        </div> <!-- col// -->
-                        <div class="col-md-4">
-                            <article>
-
-                                <div class="text">
-                                    <h6 class="mb-1"><i class="fa-solid fa-location-dot"></i> Deliver to</h6>
-                                    <% order.userId.address.forEach((address,index)=> { %>
-                                        <% if (address.address==order.address) { %>
-                                            <p class="mb-1">
-                                                <%=address.address%> address <br>
-                                                    <%=address.name%>,+91<%=address.number%>,<br>
-                                                            <%=address.landmark%>,<%=address.city%>,<br>
-                                                                    <%=address.state%>,<%=address.country%> <br>
-                                                                            <%=address.pincode%>
-                                            </p>
-                                            <% } %>
-                                                <% }); %>
-
-                                </div>
-                            </article>
-                        </div> <!-- col// -->
-                    </div> <!-- row // -->
-                    <h2>items</h2>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="table_page table-responsive">
-                                <table>
-                                    <tbody>
-                                        <% order.items.forEach(item=> { %>
-                                            <tr>
-                                                <td><img src="/assets/uploads/<%= item.product.mainImage %>" width="40"
-                                                        height="50" class="img-xs" alt="Item"></td>
-                                                <td><a href="productDetails?productId=<%= item.product._id %>">
-                                                        <%= item.product.name %>
-                                                </td>
-                                                <td>₹<%= item.product.afterDiscount %> x <%= item.quantity %>
-                                                </td>
-                                                <td>₹<%= item.price %>
-                                                </td>
-                                                <td>
-                                                    <% if (order.orderStatus=="Delivered" ) { %>
-                                                        <a href="javascript:void(0);" class="view"
-                                                            onclick="showReviewModal('<%= item.product._id %>')">( add
-                                                            review )</a>
-                                                        <%}%></a>
-                                                </td>
-                                            </tr>
-                                            <% }); %>
-                                                <tr>
-                                                    <td colspan="2"></td>
-                                                    <td><strong>Sub Total:</strong></td>
-                                                    <td>₹<%= subTotalAmount %>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2"></td>
-                                                    <td><strong>Coupon Discount:</strong></td>
-                                                    <td>₹<%= couponDiscount %>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2"></td>
-                                                    <td><strong>Shipping Charge:</strong></td>
-                                                    <td>₹<%= order.deliveryCharge %>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td colspan="2"></td>
-                                                    <td><strong>Total Amount:</strong></td>
-                                                    <td>₹<%= order.totalAmount %>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td colspan="2"></td>
-                                                    <td><strong>Payment Method:</strong></td>
-                                                    <td>
-                                                        <%= order.paymentType %>
-                                                    </td>
-                                                </tr>
-
-                                    </tbody>
-                                </table>
+                   
+                      
+                </div>
+            </header> <!-- card-header end// -->
+            <div class="card-body">
+                <div class="row mb-50 mt-20 order-info-wrap">
+                    
+                    <div class="col-md-4">
+                        <article class="">
+                            
+                            <div class="text">
+                                <h6 class="mb-1"><i class="fas fa-shipping-fast"></i>  Order info</h6>
+                                <p class="mb-1">
+                                    Shipping: Fargo express <br> Pay method: <%=order.paymentType%> <br> Status: <%=order.orderStatus%> <br>
+                                    <% if (order.cancelReason!=null) { %>
+                                        Cancelation Reason: <%=order.cancelReason%>
+                                    <% } %>
+                                </p>
+                                <a class="btn btn-md btn-black-default-hover" href="/downloadOrderInvoice?orderId=<%=order._id%>" >download invoice</a>
+                                
                             </div>
-
-                        </div> <!-- col// -->
-                        <div class="col-lg-1"></div>
-                        <div class="col-lg-5">
-                            <div class="box shadow-sm bg-light">
-                                <h6 class="mb-15">Other Actions</h6>
-
-                                <% if (order.orderStatus=="Placed" ) { %>
-                                    <a href="javascript:void(0);" class="view"
-                                        onclick="showCancelModal('<%= order._id %>')">Cancel Order</a>
-                                    <% } else if(order.orderStatus=="Canceled By Admin" ||
-                                        order.orderStatus=="Canceled By User" ) { %>
-                                        <button type="button" class="view disabled" aria-disabled="true">Order
-                                            Cancelled</button>
-                                        <% } %>
-                                            <%if(order.orderStatus=="Delivered" ){ %>
-                                                <a href="javascript:void(0);" class="view"
-                                                    onclick="showReturnModal('<%= order._id %>')">Return Order</a>
-                                                <% } else if(order.orderStatus=="Return Pending" ||
-                                                    order.orderStatus=="Return Completed" ||
-                                                    order.orderStatus=="Return Rejected" ) {%>
-                                                    <a href="javascript:void(0);" class="view">
-                                                        <%=order.orderStatus%>
-                                                    </a>
-                                                    <% } %>
-
+                        </article>
+                    </div> <!-- col// -->
+                    <div class="col-md-4">
+                        <article >
+                           
+                            <div class="text">
+                                <h6 class="mb-1"><i class="fa-solid fa-location-dot"></i>  Deliver to</h6>
+                                <% order.userId.address.forEach((address,index) => { %>
+                                    <% if (address.address ==order.address) { %>
+                                <p class="mb-1">
+                                    <%=address.address%> address <br>
+                                    <%=address.name%>,+91<%=address.number%>,<br>
+                                    <%=address.landmark%>,<%=address.city%>,<br><%=address.state%>,<%=address.country%> <br> <%=address.pincode%>
+                                </p>
+                                <% } %>
+                                <% }); %>
+                              
                             </div>
+                        </article>
+                    </div> <!-- col// -->
+                </div> <!-- row // -->
+                <h2>items</h2>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="table_page table-responsive">
+                            <table>
+                                <tbody>
+                                    <% order.items.forEach(item => { %>
+                                    <tr>
+                                        <td><img src="/assets/uploads/<%= item.product.mainImage %>" width="40" height="50" class="img-xs" alt="Item"></td>
+                                        <td><a href="productDetails?productId=<%= item.product._id %>" ><%= item.product.name %>
+                                            </td>
+                                        <td>₹<%= item.product.afterDiscount %> x <%= item.quantity %></td>
+                                        <td>₹<%= item.price %></td>
+                                        <td><% if (order.orderStatus == "Delivered") { %> 
+                                            <a href="javascript:void(0);" class="view" onclick="showReviewModal('<%= item.product._id %>')" >( add review )</a>
+                                           <%}%></a></td>
+                                    </tr>
+                                    <% }); %>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td><strong>Sub Total:</strong></td>
+                                        <td>₹<%= subTotalAmount %></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td><strong>Coupon Discount:</strong></td>
+                                        <td>₹<%= couponDiscount %></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td><strong>Shipping Charge:</strong></td>
+                                        <td>₹<%= order.deliveryCharge %></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td><strong>Total Amount:</strong></td>
+                                        <td>₹<%= order.totalAmount %></td>
+                                    </tr>
 
-                        </div> <!-- col// -->
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td><strong>Payment Method:</strong></td>
+                                        <td><%= order.paymentType %></td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div> <!-- col// -->
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5">
+                        <div class="box shadow-sm bg-light">
+                            <h6 class="mb-15">Other Actions</h6>
+                            
+                                            <% if (order.orderStatus == "Placed" ) { %>
+                                              <a href="javascript:void(0);" class="view" onclick="showCancelModal('<%= order._id %>')">Cancel Order</a>
+                                             <% } else if(order.orderStatus == "Canceled By Admin" || order.orderStatus == "Canceled By User") { %>
+                                                    <button type="button" class="view disabled" aria-disabled="true">Order Cancelled</button>
+                                             <% } %>
+                                             <%if(order.orderStatus == "Delivered"){ %>
+                                                <a href="javascript:void(0);" class="view" onclick="showReturnModal('<%= order._id %>')">Return Order</a>
+                                             <% } else if(order.orderStatus == "Return Pending" || order.orderStatus == "Return Completed" || order.orderStatus =="Return Rejected") {%>
+                                                <a href="javascript:void(0);" class="view"><%=order.orderStatus%></a>
+                                             <% } %>   
+                          
+                        </div>
+                        
+                    </div> <!-- col// -->
+                </div>
+            </div> <!-- card-body end// -->
+        </div> <!-- card end// -->
+
+        <!-- Modal For Cancel Order -->
+        <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cancelModalLabel">Cancel Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div> <!-- card-body end// -->
-            </div> <!-- card end// -->
-
-            <!-- Modal For Cancel Order -->
-            <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="cancelModalLabel">Cancel Order</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="cancelOrderForm">
-                                <input type="hidden" id="cancelOrderId" name="orderId">
-                                <div class="form-group">
-                                    <label for="cancelReason">Reason for Cancellation</label>
-                                    <textarea class="form-control" id="cancelReason" name="cancelReason"
-                                        required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-md btn-black-default-hover  ">Submit</button>
-                            </form>
-                        </div>
+                    <div class="modal-body">
+                        <form id="cancelOrderForm">
+                            <input type="hidden" id="cancelOrderId" name="orderId">
+                            <div class="form-group">
+                                <label for="cancelReason">Reason for Cancellation</label>
+                                <textarea class="form-control" id="cancelReason" name="cancelReason" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-md btn-black-default-hover  ">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <!-- end cancel order modal -->
+        </div>
+        <!-- end cancel order modal -->
 
-            <!-- Modal For return Order -->
-            <div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="returnModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="returnModalLabel">return Order</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="returnOrderForm">
-                                <input type="hidden" id="returnOrderId" name="orderId">
-                                <div class="form-group">
-                                    <label for="returnReason">Reason for Return</label>
-                                    <textarea class="form-control" id="returnReason" name="returnReason"
-                                        required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-md btn-black-default-hover  ">Submit</button>
-                            </form>
-                        </div>
+         <!-- Modal For return Order -->
+         <div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="returnModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="returnModalLabel">return Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="returnOrderForm">
+                            <input type="hidden" id="returnOrderId" name="orderId">
+                            <div class="form-group">
+                                <label for="returnReason">Reason for Return</label>
+                                <textarea class="form-control" id="returnReason" name="returnReason" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-md btn-black-default-hover  ">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <!-- end Return order modal -->
+        </div>
+        <!-- end Return order modal -->
 
-            <!-- Modal for addingReview Structure -->
-            <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- <div class="modal-header">
+        <!-- Modal for addingReview Structure -->
+        <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- <div class="modal-header">
                 <h5 class="modal-title" id="reviewModalLabel">Add a Review</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div> -->
-                        <div class="modal-body">
-                            <div class="review-form">
-                                <div class="review-form-text-top">
-                                    <h5>ADD A REVIEW</h5>
-                                </div>
-                                <form id="reviewForm" method="post">
-                                    <input type="hidden" id="productId" name="productId">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="default-form-box">
-                                                <label for="comment-name">Rating <span>*</span></label>
-                                                <input id="rating" type="number" name="rating"
-                                                    placeholder="rate out of 5" required>
-
-                                                <h6 id="ratingError" style="color:red;"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="default-form-box">
-                                                <label for="comment-review-text">Your review <span>*</span></label>
-                                                <textarea id="reviewComment" name="review" placeholder="Write a review"
-                                                    required></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <button class="btn btn-md btn-black-default-hover"
-                                                type="submit">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                <div class="modal-body">
+                <div class="review-form">
+                    <div class="review-form-text-top">
+                    <h5>ADD A REVIEW</h5>
+                    </div>
+                    <form id="reviewForm" method="post">
+                        <input type="hidden" id="productId" name="productId">
+                    <div class="row">
+                        <div class="col-md-6">
+                        <div class="default-form-box">
+                            <label for="comment-name">Rating <span>*</span></label>
+                            <input id="rating" type="number" name="rating" placeholder="rate out of 5" required>
+                            
+                            <h6 id="ratingError" style="color:red;"></h6>
+                        </div>
+                        </div>
+                        <div class="col-12">
+                        <div class="default-form-box">
+                            <label for="comment-review-text">Your review <span>*</span></label>
+                            <textarea id="reviewComment" name="review" placeholder="Write a review" required></textarea>
+                        </div>
+                        </div>
+                        <div class="col-12">
+                        <button class="btn btn-md btn-black-default-hover" type="submit">Submit</button>
                         </div>
                     </div>
+                    </form>
+                </div>
                 </div>
             </div>
-            <!-- End Add Review Modal -->
-        </section> <!-- content-main end// -->
+            </div>
+        </div>
+        <!-- End Add Review Modal -->
+    </section> <!-- content-main end// -->
+    
+  </div>
 
-    </div>
+  <!-- =========================================================================================================== -->
+  <script>
+  // Cancel order
+  function showCancelModal(orderId) {
+      document.getElementById('cancelOrderId').value = orderId;
+      $('#cancelModal').modal('show');
+  }
 
-    <!-- =========================================================================================================== -->
-    <script>
-        // Cancel order
-        function showCancelModal(orderId) {
-            document.getElementById('cancelOrderId').value = orderId;
-            $('#cancelModal').modal('show');
-        }
+  document.getElementById('cancelOrderForm').addEventListener('submit', async (event) => {
+  event.preventDefault(); // Prevent the default form submission
 
-        document.getElementById('cancelOrderForm').addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent the default form submission
+  const formData = new FormData(event.target);
+  const orderId = formData.get('orderId');
+  const cancelReason = formData.get('cancelReason');
 
-            const formData = new FormData(event.target);
-            const orderId = formData.get('orderId');
-            const cancelReason = formData.get('cancelReason');
+  try {
+      // Send POST request to cancel the order
+      const response = await axios.post('/cancelOrder', { orderId, cancelReason });
 
-            try {
-                // Send POST request to cancel the order
-                const response = await axios.post('/cancelOrder', { orderId, cancelReason });
+      if (response.data.success) {
+          // Hide the modal using Bootstrap 5 API
+          const cancelModalElement = document.getElementById('cancelModal');
+          const cancelModal = bootstrap.Modal.getInstance(cancelModalElement); // Get the instance of the modal
+          cancelModal.hide(); // Hide the modal
+          
+          // Show success message
+          Swal.fire({
+              title: 'Order Canceled!',
+              text: 'The order has been canceled.',
+              icon: 'success',
+              customClass: {
+                      confirmButton: 'sweetAlert-custom-button'
+                  }
+          }).then(() => {
+              location.reload(); // Reload the page to reflect changes
+          });
+      } else {
+          Swal.fire({
+              title: 'Error!',
+              text: response.data.message || 'There was an error canceling the order.',
+              icon: 'error',
+              customClass: {
+                      confirmButton: 'sweetAlert-custom-button'
+                  }
+          });
+      }
+  } catch (error) {
+      console.error('There was a problem with the axios request:', error);
+      Swal.fire({
+          title: 'Error!',
+          text: 'There was an error canceling the order.',
+          icon: 'error',
+          customClass: {
+                      confirmButton: 'sweetAlert-custom-button'
+                  }
+      });
+  }
+});
 
-                if (response.data.success) {
-                    // Hide the modal using Bootstrap 5 API
-                    const cancelModalElement = document.getElementById('cancelModal');
-                    const cancelModal = bootstrap.Modal.getInstance(cancelModalElement); // Get the instance of the modal
-                    cancelModal.hide(); // Hide the modal
+ // Return order
+ function showReturnModal(orderId) {
+      document.getElementById('returnOrderId').value = orderId;
+      $('#returnModal').modal('show');
+  }
 
-                    // Show success message
-                    Swal.fire({
-                        title: 'Order Canceled!',
-                        text: 'The order has been canceled.',
-                        icon: 'success',
-                        customClass: {
-                            confirmButton: 'sweetAlert-custom-button'
-                        }
-                    }).then(() => {
-                        location.reload(); // Reload the page to reflect changes
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: response.data.message || 'There was an error canceling the order.',
-                        icon: 'error',
-                        customClass: {
-                            confirmButton: 'sweetAlert-custom-button'
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error('There was a problem with the axios request:', error);
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'There was an error canceling the order.',
-                    icon: 'error',
-                    customClass: {
-                        confirmButton: 'sweetAlert-custom-button'
-                    }
-                });
-            }
-        });
+  document.getElementById('returnOrderForm').addEventListener('submit', async (event) => {
+  event.preventDefault(); // Prevent the default form submission
 
-        // Return order
-        function showReturnModal(orderId) {
-            document.getElementById('returnOrderId').value = orderId;
-            $('#returnModal').modal('show');
-        }
+  const formData = new FormData(event.target);
+  const orderId = formData.get('orderId');
+  const returnReason = formData.get('returnReason');
 
-        document.getElementById('returnOrderForm').addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent the default form submission
+  try {
+      // Send POST request to return the order
+      const response = await axios.post('/returnOrder', { orderId, returnReason });
 
-            const formData = new FormData(event.target);
-            const orderId = formData.get('orderId');
-            const returnReason = formData.get('returnReason');
-
-            try {
-                // Send POST request to return the order
-                const response = await axios.post('/returnOrder', { orderId, returnReason });
-
-                if (response.data.success) {
-                    // Hide the modal using Bootstrap 5 API
-                    const returnModalElement = document.getElementById('returnModal');
-                    const returnModal = bootstrap.Modal.getInstance(returnModalElement); // Get the instance of the modal
-                    returnModal.hide(); // Hide the modal
-
-                    // Show success message
-                    Swal.fire({
-                        title: 'Return request sended!',
-                        text: 'The order will be returned if the request accepted.',
-                        icon: 'success',
-                        customClass: {
-                            confirmButton: 'sweetAlert-custom-button'
-                        }
-                    }).then(() => {
-                        location.reload(); // Reload the page to reflect changes
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: response.data.message || 'There was an error returning the order.',
-                        icon: 'error',
-                        customClass: {
-                            confirmButton: 'sweetAlert-custom-button'
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error('There was a problem with the axios request:', error);
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'There was an error canceling the order.',
-                    icon: 'error',
-                    customClass: {
-                        confirmButton: 'sweetAlert-custom-button'
-                    }
-                });
-            }
-        });
+      if (response.data.success) {
+          // Hide the modal using Bootstrap 5 API
+          const returnModalElement = document.getElementById('returnModal');
+          const returnModal = bootstrap.Modal.getInstance(returnModalElement); // Get the instance of the modal
+          returnModal.hide(); // Hide the modal
+          
+          // Show success message
+          Swal.fire({
+              title: 'Return request sended!',
+              text: 'The order will be returned if the request accepted.',
+              icon: 'success',
+              customClass: {
+                      confirmButton: 'sweetAlert-custom-button'
+                  }
+          }).then(() => {
+              location.reload(); // Reload the page to reflect changes
+          });
+      } else {
+          Swal.fire({
+              title: 'Error!',
+              text: response.data.message || 'There was an error returning the order.',
+              icon: 'error',
+              customClass: {
+                      confirmButton: 'sweetAlert-custom-button'
+                  }
+          });
+      }
+  } catch (error) {
+      console.error('There was a problem with the axios request:', error);
+      Swal.fire({
+          title: 'Error!',
+          text: 'There was an error canceling the order.',
+          icon: 'error',
+          customClass: {
+                      confirmButton: 'sweetAlert-custom-button'
+                  }
+      });
+  }
+});
 
 
-        // Add review
-        function showReviewModal(productId) {
-            document.getElementById('productId').value = productId;
-            $('#reviewModal').modal('show');
-        }
+// Add review
+function showReviewModal(productId) {
+      document.getElementById('productId').value = productId;
+      $('#reviewModal').modal('show');
+  }
 
-        document.getElementById('reviewForm').addEventListener('submit', async function (event) {
-            event.preventDefault(); // Prevent the default form submission
+  document.getElementById('reviewForm').addEventListener('submit', async function(event) {
+          event.preventDefault(); // Prevent the default form submission
+  
+          const rating = document.getElementById('rating').value;
+          const review = document.getElementById('reviewComment').value;
+          const productId = document.getElementById('productId').value;
+          const ratingPattern = /^[0-5](\.\d{1,2})?$/;
+          console.log(review)
+          if (!rating.match(ratingPattern)) { //checking if the user entered rating is between 0-5
+              document.getElementById('ratingError').innerHTML = "Please enter a valid rating between 0 and 5.";
+              
+          }else{
+              try {
+                  const response = await axios.post('/review', {
+                      rating: rating,
+                      review: review,
+                      productId: productId
+                  });
+                  
+                  if (response.data.success) {
+                  // Hide the modal using Bootstrap 5 API
+                  const reviewModalElement = document.getElementById('reviewModal');
+                  const reviewModal = bootstrap.Modal.getInstance(reviewModalElement); // Get the instance of the modal
+                  reviewModal.hide(); // Hide the modal
+                  
+                  // Show success message
+                  Swal.fire({
+                      title: 'Success!',
+                      text: response.data.message,
+                      icon: 'success',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                          confirmButton: 'sweetAlert-custom-button'
+                       }
+                  }).then(() => {
+                      location.reload(); // Reload the page to reflect changes
+                  });
+              } else {
+                  Swal.fire({
+                      title: 'Error!',
+                      text: 'There was an error submitting your review. Please try again.',
+                      icon: 'error',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                          confirmButton: 'sweetAlert-custom-button'
+                       }
+                  });
+              }
+              } catch (error) {
+                  console.error('There was an error submitting the review:', error);
+                  // Optionally, display an error message to the user using SweetAlert2
+                  Swal.fire({
+                      title: 'Error!',
+                      text: 'There was an error submitting your review. Please try again.',
+                      icon: 'error',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                          confirmButton: 'sweetAlert-custom-button'
+                       }
+                  });
+              }
+          }
+      });
+</script>
 
-            const rating = document.getElementById('rating').value;
-            const review = document.getElementById('reviewComment').value;
-            const productId = document.getElementById('productId').value;
-            const ratingPattern = /^[0-5](\.\d{1,2})?$/;
-            console.log(review)
-            if (!rating.match(ratingPattern)) { //checking if the user entered rating is between 0-5
-                document.getElementById('ratingError').innerHTML = "Please enter a valid rating between 0 and 5.";
-
-            } else {
-                try {
-                    const response = await axios.post('/review', {
-                        rating: rating,
-                        review: review,
-                        productId: productId
-                    });
-
-                    if (response.data.success) {
-                        // Hide the modal using Bootstrap 5 API
-                        const reviewModalElement = document.getElementById('reviewModal');
-                        const reviewModal = bootstrap.Modal.getInstance(reviewModalElement); // Get the instance of the modal
-                        reviewModal.hide(); // Hide the modal
-
-                        // Show success message
-                        Swal.fire({
-                            title: 'Success!',
-                            text: response.data.message,
-                            icon: 'success',
-                            confirmButtonText: 'OK',
-                            customClass: {
-                                confirmButton: 'sweetAlert-custom-button'
-                            }
-                        }).then(() => {
-                            location.reload(); // Reload the page to reflect changes
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'There was an error submitting your review. Please try again.',
-                            icon: 'error',
-                            confirmButtonText: 'OK',
-                            customClass: {
-                                confirmButton: 'sweetAlert-custom-button'
-                            }
-                        });
-                    }
-                } catch (error) {
-                    console.error('There was an error submitting the review:', error);
-                    // Optionally, display an error message to the user using SweetAlert2
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'There was an error submitting your review. Please try again.',
-                        icon: 'error',
-                        confirmButtonText: 'OK',
-                        customClass: {
-                            confirmButton: 'sweetAlert-custom-button'
-                        }
-                    });
-                }
-            }
-        });
-    </script>
-
-    <%- include('userFooter.ejs') %>
+<%- include('userFooter.ejs') %>

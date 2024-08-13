@@ -1,181 +1,163 @@
 <%- include ('userHeader.ejs')%>
-    <style>
-        .order-details {
-            background-color: #f9f9f9;
-            border-top: 1px solid #ddd;
-            display: none;
-            /* Initially hidden */
-        }
+<style>
+    .order-details {
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+    display: none; /* Initially hidden */
+}
 
-        .order-details td {
-            padding: 10px;
-        }
-    </style>
+.order-details td {
+    padding: 10px;
+}
 
-    <!-- ...:::: Start Breadcrumb Section:::... -->
-    <div class="breadcrumb-section breadcrumb-bg-color--golden">
-        <div class="mb-6">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
+</style>
 
-                        <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
-                            <nav aria-label="breadcrumb">
-                                <ul>
-                                    <li><a href="/">Home</a></li>
-                                    <li class="active" aria-current="page">My Account </li>
-                                </ul>
-                            </nav>
-                        </div>
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section breadcrumb-bg-color--golden">
+    <div class="mb-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                   
+                    <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
+                        <nav aria-label="breadcrumb">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li class="active" aria-current="page">My Account </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- ...:::: End Breadcrumb Section:::... -->
+</div>
+ <!-- ...:::: End Breadcrumb Section:::... -->
 
 
 
 
-    <!-- ...:::: Start Account Dashboard Section:::... -->
-    <div class="account-dashboard ">
-        <div class="container">
-            <h1 class="font-weight-bold mb-10" data-aos="fade-up" data-aos-delay="0">My Account</h1>
-            <div class="row">
-                <div class="col-sm-12 col-md-3 col-lg-3">
-                    <!-- Nav tabs -->
-                    <div class="dashboard_tab_button" data-aos="fade-up" data-aos-delay="0">
-                        <ul role="tablist" class="nav flex-column dashboard-list">
-                            <!-- <li><a href="#dashboard" data-bs-toggle="tab"
+<!-- ...:::: Start Account Dashboard Section:::... -->
+<div class="account-dashboard ">
+    <div class="container">
+        <h1 class="font-weight-bold mb-10" data-aos="fade-up" data-aos-delay="0">My Account</h1>
+        <div class="row">
+            <div class="col-sm-12 col-md-3 col-lg-3">
+                <!-- Nav tabs -->
+                <div class="dashboard_tab_button" data-aos="fade-up" data-aos-delay="0">
+                    <ul role="tablist" class="nav flex-column dashboard-list">
+                        <!-- <li><a href="#dashboard" data-bs-toggle="tab"
                                 class="nav-link btn btn-block btn-md btn-black-default-hover active">Dashboard</a>
                         </li> -->
-                            <li> <a href="#orders" data-bs-toggle="tab"
-                                    class="nav-link btn btn-block btn-md btn-black-default-hover active">Orders</a></li>
-                            <li><a href="#downloads" data-bs-toggle="tab"
-                                    class="nav-link btn btn-block btn-md btn-black-default-hover">Wallet</a></li>
-                            <li><a href="#address" data-bs-toggle="tab"
-                                    class="nav-link btn btn-block btn-md btn-black-default-hover">Addresses</a></li>
-                            <li><a href="#account-details" data-bs-toggle="tab"
-                                    class="nav-link btn btn-block btn-md btn-black-default-hover">Account details</a>
-                            </li>
-                            <li><a href="/logout"
-                                    class="nav-link btn btn-block btn-md btn-black-default-hover">logout</a></li>
-                        </ul>
-                    </div>
+                        <li> <a href="#orders" data-bs-toggle="tab"
+                                class="nav-link btn btn-block btn-md btn-black-default-hover active">Orders</a></li>
+                        <li><a href="#downloads" data-bs-toggle="tab"
+                                class="nav-link btn btn-block btn-md btn-black-default-hover">Wallet</a></li>
+                        <li><a href="#address" data-bs-toggle="tab"
+                                class="nav-link btn btn-block btn-md btn-black-default-hover">Addresses</a></li>
+                        <li><a href="#account-details" data-bs-toggle="tab"
+                                class="nav-link btn btn-block btn-md btn-black-default-hover">Account details</a>
+                        </li>
+                        <li><a href="/logout"
+                                class="nav-link btn btn-block btn-md btn-black-default-hover">logout</a></li>
+                    </ul>
                 </div>
-                <div class="col-sm-12 col-md-9 col-lg-9">
-                    <!-- Tab panes -->
-                    <div class="tab-content dashboard_content" data-aos="fade-up" data-aos-delay="200">
-                        <!-- <div class="tab-pane fade show active" id="dashboard">
+            </div>
+            <div class="col-sm-12 col-md-9 col-lg-9">
+                <!-- Tab panes -->
+                <div class="tab-content dashboard_content" data-aos="fade-up" data-aos-delay="200">
+                    <!-- <div class="tab-pane fade show active" id="dashboard">
                         <h4>Dashboard </h4>
                         <h1>Welcome <%=user.name%></h1>
                         <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent
                                 orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a
                                 href="#">Edit your password and account details.</a></p>
                     </div> -->
-                        <div class="tab-pane fade show active" id="orders">
-                            <h4>Orders</h4>
-                            <div class="table_page table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Order</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <th>Total</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="order-list">
-                                        <% orders.forEach((order, index)=> { %>
-                                            <tr class="order-row <%= index >= 5 ? 'hidden' : '' %>">
-                                                <td>
-                                                    <%= index + 1 %>
-                                                </td>
-                                                <td>
-                                                    <%= new Date(order.orderDate).toLocaleDateString() %>
-                                                </td>
-                                                <td>
-                                                    <% if (order.orderStatus=="Placed" ) { %>
-                                                        <span class="badge rounded-pill alert-warning">Order
-                                                            Placed</span>
-                                                        <% } else if(order.orderStatus=="Shipped" ||
-                                                            order.orderStatus=="Return Pending" ) { %>
-                                                            <span class="badge rounded-pill alert-warning">Order
-                                                                <%=order.orderStatus%></span>
-                                                            <% } else if(order.orderStatus=="Delivered" ||
-                                                                order.orderStatus=="Return Completed" ) { %>
-                                                                <span class="badge rounded-pill alert-success">
-                                                                    <%=order.orderStatus%>
-                                                                </span>
-                                                                <% } else if(order.orderStatus=="Canceled By Admin" ||
-                                                                    order.orderStatus=="Canceled By User" ||
-                                                                    order.orderStatus=="Return Rejected" ) { %>
-                                                                    <span class="badge rounded-pill alert-danger">
-                                                                        <%=order.orderStatus%>
-                                                                    </span>
-                                                                    <% } %>
-                                                </td>
-                                                <td>₹<%= order.totalAmount %>.00 </td>
-                                                <td>
-                                                    <a href="/userOrderDetails?orderId=<%=order._id%>"
-                                                        class="view">Details</a>
-
-                                                </td>
-                                            </tr>
-
-                                            <% }); %>
-                                    </tbody>
-                                </table>
-                                <% if (orders.length> 5) { %>
-                                    <div class="text-center mt-3">
-                                        <button id="show-all-btn" class="btn btn-md btn-black-default-hover">Show
-                                            All</button>
-                                    </div>
-                                    <% } %>
+                    <div class="tab-pane fade show active" id="orders">
+                        <h4>Orders</h4>
+                        <div class="table_page table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="order-list">
+                                    <% orders.forEach((order, index) => { %>
+                                    <tr class="order-row <%= index >= 5 ? 'hidden' : '' %>">
+                                        <td><%= index + 1 %></td>
+                                        <td><%= new Date(order.orderDate).toLocaleDateString() %></td>
+                                        <td>
+                                            <% if (order.orderStatus == "Placed") { %>
+                                                <span class="badge rounded-pill alert-warning">Order Placed</span>
+                                            <% } else if(order.orderStatus == "Shipped" || order.orderStatus == "Return Pending") { %> 
+                                                <span class="badge rounded-pill alert-warning">Order <%=order.orderStatus%></span>
+                                            <% } else if(order.orderStatus == "Delivered" || order.orderStatus == "Return Completed") { %> 
+                                                <span class="badge rounded-pill alert-success"> <%=order.orderStatus%></span>
+                                            <% } else if(order.orderStatus == "Canceled By Admin" || order.orderStatus == "Canceled By User" || order.orderStatus == "Return Rejected") { %> 
+                                                <span class="badge rounded-pill alert-danger"><%=order.orderStatus%></span>
+                                            <% } %>
+                                        </td>
+                                        <td>₹<%= order.totalAmount %>.00 </td>
+                                        <td>
+                                            <a href="/userOrderDetails?orderId=<%=order._id%>" class="view" >Details</a>
+                                           
+                                        </td>
+                                    </tr>
+                                   
+                                    <% }); %>
+                                </tbody>
+                            </table>
+                            <% if (orders.length > 5) { %>
+                            <div class="text-center mt-3">
+                                <button id="show-all-btn" class="btn btn-md btn-black-default-hover">Show All</button>
                             </div>
-
-
-
-
-
+                            <% } %>
                         </div>
-                        <div class="tab-pane fade" id="downloads">
-                            <div class="main-container d-flex flex-column" style="min-height: fit-content;">
+                        
+                        
+                        
+                       
 
-                                <div class="container mt-4">
-                                    <h2 class="heading">WALLET</h2>
-                                </div>
-                                <div class="container mb-5">
-                                    <div class="row mt-5">
-                                        <div class="col-md-6 ">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between">
-                                                        <h3 class="head">hello <%= user.name %>,</h3>
-                                                        <button class="normalBtn">Add Money</button>
-                                                    </div>
-                                                    <div class="form-group mt-3 ">
-                                                        <label>Wallet Balance</label>
+                    </div>
+                    <div class="tab-pane fade" id="downloads">
+                        <div class="main-container d-flex flex-column" style="min-height: fit-content;">
 
-
-                                                        <address><strong style="font-size: 32px;">₹ <%=
-                                                                    user.walletAmount %></strong></address>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <a href="/walletHistory">Wallet History &nbsp;<i
-                                                                class="fa-solid fa-wallet"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
+                            <div class="container mt-4" >
+                                <h2 class="heading">WALLET</h2>
                             </div>
-
-                            <!-- <h4>Downloads</h4>
+                            <div class="container mb-5">
+                                <div class="row mt-5">
+                                  <div class="col-md-6 ">
+                                    <div class="card">
+                                      <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                        <h3 class="head">hello <%= user.name %>,</h3>
+                                        <button class="normalBtn">Add Money</button>
+                                        </div>
+                                        <div  class="form-group mt-3 ">
+                                          <label>Wallet Balance</label> 
+                        
+                        
+                                        <address><strong style="font-size: 32px;">₹ <%= user.walletAmount %></strong></address> 
+                                        </div>
+                                        <div class="form-group">
+                                          <a href="/walletHistory">Wallet History &nbsp;<i class="fa-solid fa-wallet"></i></a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        
+                        
+                        </div>
+                        
+                        <!-- <h4>Downloads</h4>
                         <div class="table_page table-responsive">
                             <table>
                                 <thead>
@@ -202,153 +184,125 @@
                                 </tbody>
                             </table>
                         </div> -->
-                        </div>
-                        <div class="tab-pane" id="address">
-                            <% if (user.address.length>= 3) { %>
-                                <p style="color: crimson;">Adress Limit Exceeded You Can't Add Address Anymore</p>
-                                <%} else { %>
-                                    <div class="mt-3">
-                                        <button class="btn btn-md btn-black-default-hover" data-bs-toggle="modal"
-                                            data-bs-target="#addressModal">Add Address</button>
+                    </div>
+                    <div class="tab-pane" id="address">
+                        <% if (user.address.length>= 3) { %>
+                            <p style="color: crimson;">Adress Limit Exceeded You Can't Add Address Anymore</p>
+                            <%} else { %>
+                                <div class="mt-3">
+                                    <button class="btn btn-md btn-black-default-hover" data-bs-toggle="modal" data-bs-target="#addressModal">Add Address</button>
+                                </div>
+                              <% } %>
+                        <!-- <p>The following addresses will be used on the checkout page by default.</p> -->
+                        <% user.address.forEach((data,index)=>{ %>
+                            <h5 class="billing-address">Address <%=index+1 %></h5>
+                            <ul>
+                                <% if (data.address === 'temporary') { %>
+                                <li><p>temporary address </p></li> 
+                                <% } else { %>
+                                    <li><p><%=data.address%> address </p></li> 
+                                <% } %>  
+                                 <p><%= data.name %>, <%=data.landmark %>, <%= data.city %>, <br>
+                                       <%= data.state %>, <%= data.country %>, <%= data.pincode %>   </p>
+                                 <p><%= data.number %></p>
+                                 
+                           </ul>
+
+                           <a href="#" class="view mr-2" data-bs-toggle="modal" data-bs-target="#editAddressModal<%=index%>">Edit</a>
+                            <a href="javascript:void(0);" onclick="confirmDelete('<%=index%>')"><i class="fa fa-trash" aria-hidden="true"></i></a> 
+                        <hr class="my-4">
+
+    
+
+                        <!-- Edit Address Modal -->
+        <div class="modal fade" id="editAddressModal<%=index%>" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addressModalLabel">Edit Address</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      
+                            <div class="default-form-box mb-20">
+                                <label>Name</label>
+                                <input type="text" value="<%= data.name %>" name="name">
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>Number</label>
+                                <input type="tel" value="<%= data.number %>" name="number">
+                            </div>
+                            <div class="default-form-box mb-20" hidden>
+                                <label>Address</label>
+                                <select class="form-control" id="editAddressType"
+                                    value="<%= data.address %>"
+                                    name="address" required>
+                                    <option value="home"
+                                        <% if (data.address === 'home') { %>selected<% } %>>
+                                        Home</option>
+                                    <option value="work"
+                                        <% if (data.address === 'work') { %>selected<% } %>>
+                                        Work</option>
+                                    <option value="temp"
+                                        <% if (data.address === 'temp') { %>selected<% } %>>
+                                        Temporary</option>
+                                 </select>
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>City</label>
+                                <input type="text" value="<%= data.city %>" name="city">
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>State</label>
+                                
+                                <input type="text" value="<%= data.state %>" name="state">
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>Country</label>
+                                <input type="text" value="<%= data.country %>" name="country">
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>Pincode</label>
+                                <input type="text" value="<%= data.pincode %>" name="pincode">
+                            </div>
+                            <div class="default-form-box mb-20">
+                                <label>LandMark</label>
+                                <input type="text" value="<%= data.landmark %>" name="landmark">
+                            </div>
+                            <div class="save_button mt-3">
+                                <button class="btn btn-md btn-black-default-hover" type="submit">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Edit address -->
+                           <% }) %>
+                        
+                           
+
+                        
+                    </div>
+
+
+                    <!-- Account Details Page -->
+                    <div class="tab-pane fade" id="account-details">
+                        <h3>Account details </h3>
+                        <div class="login">
+                            <div class="login_form_container">
+                                <div class="account_login_form">
+                                    <p>Username : <%=user.name%></p>
+                                    <p>Email : <%=user.email%></p>
+                                    <p>Contact No :<%=user.mobile%></p>
+                                    <button type="button" class="btn btn-md btn-black-default-hover" data-bs-toggle="modal" data-bs-target="#changeUsernameModal">
+                                        Change Username
+                                    </button>
+                                    <div class=" mt-3">
+                                        <button class="btn btn-md btn-black-default-hover" data-bs-toggle="modal" data-bs-target="#changePasswordModal"
+                                            >Change password</button>
                                     </div>
-                                    <% } %>
-                                        <!-- <p>The following addresses will be used on the checkout page by default.</p> -->
-                                        <% user.address.forEach((data,index)=>{ %>
-                                            <h5 class="billing-address">Address <%=index+1 %>
-                                            </h5>
-                                            <ul>
-                                                <% if (data.address==='temporary' ) { %>
-                                                    <li>
-                                                        <p>temporary address </p>
-                                                    </li>
-                                                    <% } else { %>
-                                                        <li>
-                                                            <p>
-                                                                <%=data.address%> address
-                                                            </p>
-                                                        </li>
-                                                        <% } %>
-                                                            <p>
-                                                                <%= data.name %>, <%=data.landmark %>, <%= data.city %>,
-                                                                            <br>
-                                                                            <%= data.state %>, <%= data.country %>, <%=
-                                                                                        data.pincode %>
-                                                            </p>
-                                                            <p>
-                                                                <%= data.number %>
-                                                            </p>
-
-                                            </ul>
-
-                                            <a href="#" class="view mr-2" data-bs-toggle="modal"
-                                                data-bs-target="#editAddressModal<%=index%>">Edit</a>
-                                            <a href="javascript:void(0);" onclick="confirmDelete('<%=index%>')"><i
-                                                    class="fa fa-trash" aria-hidden="true"></i></a>
-                                            <hr class="my-4">
-
-
-
-                                            <!-- Edit Address Modal -->
-                                            <div class="modal fade" id="editAddressModal<%=index%>" tabindex="-1"
-                                                aria-labelledby="editAddressModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="addressModalLabel">Edit Address
-                                                            </h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-
-                                                            <div class="default-form-box mb-20">
-                                                                <label>Name</label>
-                                                                <input type="text" value="<%= data.name %>" name="name">
-                                                            </div>
-                                                            <div class="default-form-box mb-20">
-                                                                <label>Number</label>
-                                                                <input type="tel" value="<%= data.number %>"
-                                                                    name="number">
-                                                            </div>
-                                                            <div class="default-form-box mb-20" hidden>
-                                                                <label>Address</label>
-                                                                <select class="form-control" id="editAddressType"
-                                                                    value="<%= data.address %>" name="address" required>
-                                                                    <option value="home" <% if (data.address==='home' )
-                                                                        { %>selected<% } %>>
-                                                                            Home</option>
-                                                                    <option value="work" <% if (data.address==='work' )
-                                                                        { %>selected<% } %>>
-                                                                            Work</option>
-                                                                    <option value="temp" <% if (data.address==='temp' )
-                                                                        { %>selected<% } %>>
-                                                                            Temporary</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="default-form-box mb-20">
-                                                                <label>City</label>
-                                                                <input type="text" value="<%= data.city %>" name="city">
-                                                            </div>
-                                                            <div class="default-form-box mb-20">
-                                                                <label>State</label>
-
-                                                                <input type="text" value="<%= data.state %>"
-                                                                    name="state">
-                                                            </div>
-                                                            <div class="default-form-box mb-20">
-                                                                <label>Country</label>
-                                                                <input type="text" value="<%= data.country %>"
-                                                                    name="country">
-                                                            </div>
-                                                            <div class="default-form-box mb-20">
-                                                                <label>Pincode</label>
-                                                                <input type="text" value="<%= data.pincode %>"
-                                                                    name="pincode">
-                                                            </div>
-                                                            <div class="default-form-box mb-20">
-                                                                <label>LandMark</label>
-                                                                <input type="text" value="<%= data.landmark %>"
-                                                                    name="landmark">
-                                                            </div>
-                                                            <div class="save_button mt-3">
-                                                                <button class="btn btn-md btn-black-default-hover"
-                                                                    type="submit">Save</button>
-                                                            </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End Edit address -->
-                                            <% }) %>
-
-
-
-
-                        </div>
-
-
-                        <!-- Account Details Page -->
-                        <div class="tab-pane fade" id="account-details">
-                            <h3>Account details </h3>
-                            <div class="login">
-                                <div class="login_form_container">
-                                    <div class="account_login_form">
-                                        <p>Username : <%=user.name%>
-                                        </p>
-                                        <p>Email : <%=user.email%>
-                                        </p>
-                                        <p>Contact No :<%=user.mobile%>
-                                        </p>
-                                        <button type="button" class="btn btn-md btn-black-default-hover"
-                                            data-bs-toggle="modal" data-bs-target="#changeUsernameModal">
-                                            Change Username
-                                        </button>
-                                        <div class=" mt-3">
-                                            <button class="btn btn-md btn-black-default-hover" data-bs-toggle="modal"
-                                                data-bs-target="#changePasswordModal">Change password</button>
-                                        </div>
-                                        <!-- <form action="/changeUsername" method="post">
+                                    <!-- <form action="/changeUsername" method="post">
                                         <br>
                                         <div class="default-form-box mb-20">
                                             <label>username</label>
@@ -362,428 +316,424 @@
                                                 type="submit">Save</button>
                                         </div>
                                     </form> -->
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Change Username Modal -->
-            <div class="modal fade" id="changeUsernameModal" tabindex="-1" aria-labelledby="changeUsernameModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="changeUsernameModalLabel">Change Username</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <!-- Modal Body -->
-                        <div class="modal-body">
-                            <!-- Alert for validation messages -->
-                            <div id="validationAlert" class="alert alert-danger" style="display:none;" role="alert">
-                                <!-- Messages will be injected here -->
-                            </div>
-                            <form id="changeUsernameForm" onsubmit="return validateUsernameForm(event)">
-                                <div class="default-form-box mb-20">
-                                    <label>Username</label>
-                                    <input type="text" value="<%=user.name%>" name="name" class="form-control">
-                                </div>
-                                <div class="save_button mt-3">
-                                    <button class="btn btn-md btn-black-default-hover" type="submit">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Change Password Modal -->
-            <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <!-- Modal Body -->
-                        <div class="modal-body">
-                            <!-- Alert for validation messages -->
-                            <div id="validationAddressAlert" class="alert alert-danger" style="display:none;"
-                                role="alert">
-                                <!-- Messages will be injected here -->
-                            </div>
-
-                            <form id="changePasswordForm" onsubmit="return validateForm(event)">
-                                <div class="default-form-box mb-20">
-                                    <label>Old Password</label>
-                                    <input type="password" name="oldPassword" class="form-control">
-                                </div>
-                                <div class="default-form-box mb-20">
-                                    <label>New Password</label>
-                                    <input type="password" name="password" class="form-control">
-                                </div>
-                                <div class="default-form-box mb-20">
-                                    <label>Confirm New Password</label>
-                                    <input type="password" name="confirmPassword" class="form-control">
-                                </div>
-                                <div class="save_button mt-3">
-                                    <button class="btn btn-md btn-black-default-hover" type="submit">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- Add Address Modal -->
-            <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addressModalLabel">Add Address</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="addAddressForm" onsubmit="return validateAddressForm(event)">
-                                <div class="default-form-box mb-20">
-                                    <label>Name</label>
-                                    <input type="text" name="name" class="form-control">
-                                </div>
-                                <div class="default-form-box mb-20">
-                                    <label>Number</label>
-                                    <input type="tel" name="number" class="form-control">
-                                </div>
-                                <div class="default-form-box mb-20">
-                                    <label>Address</label>
-                                    <select class="form-control" id="addressType" name="address">
-                                        <option value="home" <%=selectedAddressTypes.includes('home') ? 'disabled' : ''
-                                            %>>
-                                            Home</option>
-                                        <option value="work" <%=selectedAddressTypes.includes('work') ? 'disabled' : ''
-                                            %>>
-                                            Work</option>
-                                        <option value="temporary" <%=selectedAddressTypes.includes('temporary')
-                                            ? 'disabled' : '' %>>
-                                            Temporary</option>
-                                    </select>
-                                    <!-- <input type="text" name="address" class="form-control"> -->
-                                </div>
-                                <div class="default-form-box mb-20">
-                                    <label>City</label>
-                                    <input type="text" name="city" class="form-control">
-                                </div>
-                                <div class="default-form-box mb-20">
-                                    <label>State</label>
-                                    <input type="text" name="state" class="form-control">
-                                </div>
-                                <div class="default-form-box mb-20">
-                                    <label>Country</label>
-                                    <input type="text" name="country" class="form-control">
-                                </div>
-                                <div class="default-form-box mb-20">
-                                    <label>Pincode</label>
-                                    <input type="text" name="pincode" class="form-control">
-                                </div>
-                                <div class="default-form-box mb-20">
-                                    <label>LandMark</label>
-                                    <input type="text" name="landmark" class="form-control">
-                                </div>
-                                <!-- Alert for validation messages -->
-                                <div id="addressValidationAlert" class="alert alert-danger" style="display:none;"
-                                    role="alert">
-                                    <!-- Messages will be injected here -->
-                                </div>
-
-                                <div class="save_button mt-3">
-                                    <button class="btn btn-md btn-black-default-hover" type="submit">Add</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Add Address -->
-
-
-
         </div>
-    </div> <!-- ...:::: End Account Dashboard Section:::... -->
 
-    <!-- ================================================================================================================== -->
-    <!-- delete address confirmation -->
-    <!-- delete confirmation -->
-    <script>
-        function confirmDelete(index) {
-            let addressId = true;
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'Do you want to remove this product from the cart?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, remove it!',
-                cancelButtonText: 'No, keep it',
-                customClass: {
+       <!-- Change Username Modal -->
+    <div class="modal fade" id="changeUsernameModal" tabindex="-1" aria-labelledby="changeUsernameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changeUsernameModalLabel">Change Username</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <!-- Alert for validation messages -->
+                    <div id="validationAlert" class="alert alert-danger" style="display:none;" role="alert">
+                        <!-- Messages will be injected here -->
+                    </div>
+                    <form id="changeUsernameForm" onsubmit="return validateUsernameForm(event)">
+                        <div class="default-form-box mb-20">
+                            <label>Username</label>
+                            <input type="text" value="<%=user.name%>" name="name" class="form-control">
+                        </div>
+                        <div class="save_button mt-3">
+                            <button class="btn btn-md btn-black-default-hover" type="submit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+       <!-- Change Password Modal -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <!-- Alert for validation messages -->
+                    <div id="validationAddressAlert" class="alert alert-danger" style="display:none;" role="alert">
+                        <!-- Messages will be injected here -->
+                    </div>
+
+                    <form id="changePasswordForm" onsubmit="return validateForm(event)">
+                        <div class="default-form-box mb-20">
+                            <label>Old Password</label>
+                            <input type="password" name="oldPassword" class="form-control">
+                        </div>
+                        <div class="default-form-box mb-20">
+                            <label>New Password</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+                        <div class="default-form-box mb-20">
+                            <label>Confirm New Password</label>
+                            <input type="password" name="confirmPassword" class="form-control">
+                        </div>
+                        <div class="save_button mt-3">
+                            <button class="btn btn-md btn-black-default-hover" type="submit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+        
+        <!-- Add Address Modal -->
+    <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addressModalLabel">Add Address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addAddressForm" onsubmit="return validateAddressForm(event)">
+                        <div class="default-form-box mb-20">
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                        <div class="default-form-box mb-20">
+                            <label>Number</label>
+                            <input type="tel" name="number" class="form-control">
+                        </div>
+                        <div class="default-form-box mb-20">
+                            <label>Address</label>
+                            <select class="form-control" id="addressType"
+                                name="address">
+                                <option value="home"
+                                <%= selectedAddressTypes.includes('home') ? 'disabled' : '' %>>
+                                Home</option>
+                                <option value="work"
+                                <%= selectedAddressTypes.includes('work') ? 'disabled' : '' %>>
+                                Work</option>
+                                <option value="temporary"
+                                <%= selectedAddressTypes.includes('temporary') ? 'disabled' : '' %>>
+                                Temporary</option>
+                             </select>
+                            <!-- <input type="text" name="address" class="form-control"> -->
+                        </div>
+                        <div class="default-form-box mb-20">
+                            <label>City</label>
+                            <input type="text" name="city" class="form-control">
+                        </div>
+                        <div class="default-form-box mb-20">
+                            <label>State</label>
+                            <input type="text" name="state" class="form-control">
+                        </div>
+                        <div class="default-form-box mb-20">
+                            <label>Country</label>
+                            <input type="text" name="country" class="form-control">
+                        </div>
+                        <div class="default-form-box mb-20">
+                            <label>Pincode</label>
+                            <input type="text" name="pincode" class="form-control">
+                        </div>
+                        <div class="default-form-box mb-20">
+                            <label>LandMark</label>
+                            <input type="text" name="landmark" class="form-control">
+                        </div>
+                         <!-- Alert for validation messages -->
+                        <div id="addressValidationAlert" class="alert alert-danger" style="display:none;" role="alert">
+                            <!-- Messages will be injected here -->
+                        </div>
+
+                        <div class="save_button mt-3">
+                            <button class="btn btn-md btn-black-default-hover" type="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Add Address -->
+
+        
+
+    </div>
+</div> <!-- ...:::: End Account Dashboard Section:::... -->
+
+<!-- ================================================================================================================== -->
+<!-- delete address confirmation -->
+  <!-- delete confirmation -->
+  <script>
+    function confirmDelete(index) {
+        let addressId = true;
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to remove this product from the cart?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it!',
+        cancelButtonText: 'No, keep it',
+        customClass: {
                     confirmButton: 'sweetAlert-custom-button'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-
-                    window.location.href = `/deleteAddress?addressIndex=${index}&from=${addressId}`;
-                }
-            });
+                 }
+      }).then((result) => {
+        if (result.isConfirmed) {
+           
+          window.location.href = `/deleteAddress?addressIndex=${index}&from=${addressId}`;
         }
-    </script>
+      });
+    }
+  </script>
 
-    <!-- change username validation -->
-    <script>
-        async function validateUsernameForm(event) {
-            event.preventDefault();
+ <!-- change username validation -->
+ <script>
+    async function validateUsernameForm(event) {
+        event.preventDefault();
+        
+        const form = document.getElementById('changeUsernameForm');
+        const username = form.name.value.trim();
+        const validationAlert = document.getElementById('validationAlert');
 
-            const form = document.getElementById('changeUsernameForm');
-            const username = form.name.value.trim();
-            const validationAlert = document.getElementById('validationAlert');
-
-            // Username pattern: 3-15 characters, letters, numbers, underscores, hyphens, starts with a letter
-            const usernamePattern = /^[a-zA-Z0-9 _-]{3,15}$/;
+        // Username pattern: 3-15 characters, letters, numbers, underscores, hyphens, starts with a letter
+        const usernamePattern = /^[a-zA-Z0-9 _-]{3,15}$/;
 
 
 
-            if (!username) {
-                showValidationMessage('Username cannot be empty.');
-                return false;
-            }
+        if (!username) {
+            showValidationMessage('Username cannot be empty.');
+            return false;
+        }
 
-            if (!usernamePattern.test(username)) {
-                showValidationMessage('Username must be 3-15 characters long and can contain letters, numbers, underscores, and hyphens. It must start with a letter.');
-                return false;
-            }
+        if (!usernamePattern.test(username)) {
+            showValidationMessage('Username must be 3-15 characters long and can contain letters, numbers, underscores, and hyphens. It must start with a letter.');
+            return false;
+        }
 
-            // if (!username) {
-            //     showValidationMessage('Username cannot be empty.');
-            //     return false;
-            // }
+        // if (!username) {
+        //     showValidationMessage('Username cannot be empty.');
+        //     return false;
+        // }
 
-            // If validation passes, submit the form using Axios
-            const responce = await axios.post('/changeUsername', {
-                name: username
-            })
-            if (responce.data.success) {
+        // If validation passes, submit the form using Axios
+        const responce = await axios.post('/changeUsername', {
+            name: username
+        })
+        if(responce.data.success){
                 $('#changeUsernameModal').modal('hide');
                 form.reset();
                 await Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: responce.data.message,
-                    customClass: {
-                        confirmButton: 'sweetAlert-custom-button'
-                    }
-                })
-                location.reload();
+                icon: 'success',
+                title: 'Success',
+                text: responce.data.message,
+                customClass: {
+                            confirmButton: 'sweetAlert-custom-button'
+                         }
+        })
+        location.reload(); 
             }
             else {
                 showValidationMessage(responce.data.message);
+   
+         }
 
-            }
+        return true;
+    }
 
-            return true;
-        }
+    function showValidationMessage(message, type = 'danger') {
+        const validationAlert = document.getElementById('validationAlert');
+        validationAlert.classList.remove('alert-success', 'alert-danger');
+        validationAlert.classList.add(`alert-${type}`);
+        validationAlert.innerText = message;
+        validationAlert.style.display = 'block';
+    }
+</script>
 
-        function showValidationMessage(message, type = 'danger') {
-            const validationAlert = document.getElementById('validationAlert');
-            validationAlert.classList.remove('alert-success', 'alert-danger');
-            validationAlert.classList.add(`alert-${type}`);
-            validationAlert.innerText = message;
-            validationAlert.style.display = 'block';
-        }
-    </script>
+<!-- Change User Password validation -->
+<script>
+    async function validateForm(event) {
+        event.preventDefault();
 
-    <!-- Change User Password validation -->
-    <script>
-        async function validateForm(event) {
-            event.preventDefault();
+        const form = document.getElementById('changePasswordForm');
+        const oldPassword = form.oldPassword.value.trim();
+        const newPassword = form.password.value.trim();
+        const confirmPassword = form.confirmPassword.value.trim();
+        const validationAlert = document.getElementById('validationAddressAlert');
 
-            const form = document.getElementById('changePasswordForm');
-            const oldPassword = form.oldPassword.value.trim();
-            const newPassword = form.password.value.trim();
-            const confirmPassword = form.confirmPassword.value.trim();
-            const validationAlert = document.getElementById('validationAddressAlert');
-
-            // password
+          // password
             const minLength = 6;
             const hasUpperCase = /[A-Z]/.test(newPassword);
             const hasLowerCase = /[a-z]/.test(newPassword);
             const hasNumbers = /\d/.test(newPassword);
 
-            if (!oldPassword || !newPassword || !confirmPassword) {
-                showAlert('Please fill out all fields.');
-                return false;
-            }
+        if (!oldPassword || !newPassword || !confirmPassword) {
+            showAlert('Please fill out all fields.');
+            return false;
+        }
 
-            if (!minLength) {
-                showAlert('Password must be at least 6 characters long.');
-                return false;
-            }
+        if (!minLength) {
+            showAlert('Password must be at least 6 characters long.');
+            return false;
+        }
 
-            if (!hasUpperCase) {
-                showAlert('Password must contain at least one uppercase letter.');
-                return false;
-            }
+        if (!hasUpperCase) {
+             showAlert('Password must contain at least one uppercase letter.');
+             return false;
+         }
 
-            if (!hasLowerCase) {
-                showAlert('Password must contain at least one lowercase letter.');
-                return false;
-            }
+        if (!hasLowerCase) {
+             showAlert('Password must contain at least one lowercase letter.');
+             return false;
+         }
 
-            if (!hasNumbers) {
-                showAlert('Password must contain at least one number.');
-                return false;
-            }
+        if (!hasNumbers) {
+             showAlert('Password must contain at least one number.');
+             return false;
+         }
 
-            if (newPassword !== confirmPassword) {
-                showAlert('New passwords do not match.');
-                return false;
-            }
+        if (newPassword !== confirmPassword) {
+             showAlert('New passwords do not match.');
+             return false;
+        }
 
-            try {
-                const response = await axios.post('/changeUserPassword', {
-                    oldPassword: oldPassword,
-                    password: newPassword,
-                    confirmPassword: confirmPassword
+        try {
+            const response = await axios.post('/changeUserPassword', {
+                oldPassword: oldPassword,
+                password: newPassword,
+                confirmPassword: confirmPassword
+            });
+
+            if (response.data.success) {
+                $('#changePasswordModal').modal('hide');
+                form.reset();
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: response.data.message,
+                    customClass: {
+                        confirmButton: 'sweetAlert-custom-button'
+                    }
                 });
-
-                if (response.data.success) {
-                    $('#changePasswordModal').modal('hide');
-                    form.reset();
-                    await Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: response.data.message,
-                        customClass: {
-                            confirmButton: 'sweetAlert-custom-button'
-                        }
-                    });
-                    location.reload();
-                } else {
-                    showAlert(response.data.message);
-                }
-            } catch (error) {
-                showAlert('An error occurred. Please try again.');
+                location.reload();
+            } else {
+                showAlert(response.data.message);
             }
-
-            return true;
+        } catch (error) {
+            showAlert('An error occurred. Please try again.');
         }
 
-        function showAlert(message) {
-            const alertDiv = document.getElementById("validationAddressAlert");
-            alertDiv.style.display = "block";
-            alertDiv.innerHTML = message;
+        return true;
+    }
+
+    function showAlert(message) {
+        const alertDiv = document.getElementById("validationAddressAlert");
+        alertDiv.style.display = "block";
+        alertDiv.innerHTML = message;
+    }
+</script>
+
+
+
+<!-- add address validation  -->
+<script>
+    async function validateAddressForm(event) {
+        event.preventDefault();
+
+        const form = document.getElementById('addAddressForm');
+        const name = form.name.value.trim();
+        const number = form.number.value.trim();
+        const address = form.address.value.trim();
+        const city = form.city.value.trim();
+        const state = form.state.value.trim();
+        const country = form.country.value.trim();
+        const pincode = form.pincode.value.trim();
+        const landmark = form.landmark.value.trim();
+        const validationAlert = document.getElementById('addressValidationAlert');
+
+        // Basic validation
+        if (!name || !number || !address || !city || !state || !country || !pincode || !landmark) {
+            showAddressAlert('Please fill out all fields.');
+            return false;
         }
-    </script>
 
+        if (!/^\d+$/.test(number)) {
+            showAddressAlert('Please enter a valid number.');
+            return false;
+        }
 
+        if (!/^\d{6}$/.test(pincode)) {
+            showAddressAlert('Please enter a valid 6-digit pincode.');
+            return false;
+        }
 
-    <!-- add address validation  -->
-    <script>
-        async function validateAddressForm(event) {
-            event.preventDefault();
+        // If validation passes, submit the form using Axios
+        try {
+            const response = await axios.post('/addAddress', {
+                name: name,
+                number: number,
+                address: address,
+                city: city,
+                state: state,
+                country: country,
+                pincode: pincode,
+                landmark: landmark
+            });
 
-            const form = document.getElementById('addAddressForm');
-            const name = form.name.value.trim();
-            const number = form.number.value.trim();
-            const address = form.address.value.trim();
-            const city = form.city.value.trim();
-            const state = form.state.value.trim();
-            const country = form.country.value.trim();
-            const pincode = form.pincode.value.trim();
-            const landmark = form.landmark.value.trim();
-            const validationAlert = document.getElementById('addressValidationAlert');
-
-            // Basic validation
-            if (!name || !number || !address || !city || !state || !country || !pincode || !landmark) {
-                showAddressAlert('Please fill out all fields.');
-                return false;
-            }
-
-            if (!/^\d+$/.test(number)) {
-                showAddressAlert('Please enter a valid number.');
-                return false;
-            }
-
-            if (!/^\d{6}$/.test(pincode)) {
-                showAddressAlert('Please enter a valid 6-digit pincode.');
-                return false;
-            }
-
-            // If validation passes, submit the form using Axios
-            try {
-                const response = await axios.post('/addAddress', {
-                    name: name,
-                    number: number,
-                    address: address,
-                    city: city,
-                    state: state,
-                    country: country,
-                    pincode: pincode,
-                    landmark: landmark
+            if (response.data.success) {
+                $('#addressModal').modal('hide');
+                form.reset();
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: response.data.message,
+                    customClass: {
+                        confirmButton: 'sweetAlert-custom-button'
+                    }
                 });
-
-                if (response.data.success) {
-                    $('#addressModal').modal('hide');
-                    form.reset();
-                    await Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: response.data.message,
-                        customClass: {
-                            confirmButton: 'sweetAlert-custom-button'
-                        }
-                    });
-                    location.reload();
-                } else {
-                    showAddressAlert(response.data.message);
-                }
-            } catch (error) {
-                showAddressAlert('An error occurred. Please try again.');
+                location.reload();
+            } else {
+                showAddressAlert(response.data.message);
             }
-
-            return true;
+        } catch (error) {
+            showAddressAlert('An error occurred. Please try again.');
         }
 
-        function showAddressAlert(message) {
-            const alertDiv = document.getElementById("addressValidationAlert");
-            alertDiv.style.display = "block";
-            alertDiv.innerHTML = message;
-        }
+        return true;
+    }
+
+    function showAddressAlert(message) {
+        const alertDiv = document.getElementById("addressValidationAlert");
+        alertDiv.style.display = "block";
+        alertDiv.innerHTML = message;
+    }
 
 
-
+    
 
 
         // <!-- order list showAll button -->
-        document.getElementById('show-all-btn').addEventListener('click', function () {
-            const hiddenRows = document.querySelectorAll('.order-row.hidden, .order-details.hidden');
-            hiddenRows.forEach(row => {
-                row.classList.remove('hidden');
-            });
-            this.style.display = 'none'; // Hide the "Show All" button after clicking
-        });
+        document.getElementById('show-all-btn').addEventListener('click', function() {
+    const hiddenRows = document.querySelectorAll('.order-row.hidden, .order-details.hidden');
+    hiddenRows.forEach(row => {
+        row.classList.remove('hidden');
+    });
+    this.style.display = 'none'; // Hide the "Show All" button after clicking
+});
 
     </script>
 
+    
+    
+    
 
-
-
-
-    <%- include('userFooter.ejs') %>
+<%- include('userFooter.ejs') %>

@@ -1,25 +1,25 @@
 <%- include ('userHeader.ejs')%>
-
-
-
-    <!-- ...:::: Start Breadcrumb Section:::... -->
+   
+   
+   
+   <!-- ...:::: Start Breadcrumb Section:::... -->
     <div class="breadcrumb-section breadcrumb-bg-color--golden">
         <div class="mb-6">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-
+                       
                         <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="/">Home</a></li>
-                                    <% if (product.collection=="Men" ) { %>
-                                        <li><a href="/menCollection">Men Collection</a></li>
+                                     <% if (product.collection=="Men") { %>
+                                    <li><a href="/menCollection">Men Collection</a></li>
+                                    <% } %>
+                                    <% if (product.collection=="Women") { %>
+                                        <li><a href="/womenCollection">Women Collection</a></li>
                                         <% } %>
-                                            <% if (product.collection=="Women" ) { %>
-                                                <li><a href="/womenCollection">Women Collection</a></li>
-                                                <% } %>
-                                                    <li class="active" aria-current="page">Product Details </li>
+                                    <li class="active" aria-current="page">Product Details </li>
                                 </ul>
                             </nav>
                         </div>
@@ -41,27 +41,23 @@
                         <!-- Start Large Image -->
                         <div class="product-large-image product-large-image-horaizontal swiper-container">
                             <div class="swiper-wrapper">
-                                <div
-                                    class="product-image-large-image swiper-slide product-image-container img-responsive">
+                                <div class="product-image-large-image swiper-slide product-image-container img-responsive">
                                     <!-- <img src="assets/images/product/default/home-1/default-1.jpg" alt=""> -->
-                                    <img class="default-img" src="/assets/uploads/<%= product.mainImage %>" alt="">
+                                    <img  class="default-img" src="/assets/uploads/<%= product.mainImage %>" alt="" >
                                 </div>
-                                <div
-                                    class="product-image-large-image swiper-slide product-image-container img-responsive">
-                                    <img src="/assets/uploads/<%= product.image[0] %>" alt="">
+                                <div class="product-image-large-image swiper-slide product-image-container img-responsive">
+                                    <img  src="/assets/uploads/<%= product.image[0] %>" alt="">
                                 </div>
-                                <div
-                                    class="product-image-large-image swiper-slide product-image-container img-responsive">
-                                    <img src="/assets/uploads/<%= product.image[1] %>" alt="">
+                                <div class="product-image-large-image swiper-slide product-image-container img-responsive">
+                                    <img  src="/assets/uploads/<%= product.image[1] %>" alt="">
                                 </div>
-                                <div
-                                    class="product-image-large-image swiper-slide product-image-container img-responsive">
-                                    <img src="/assets/uploads/<%= product.image[2] %>" alt="">
+                                <div class="product-image-large-image swiper-slide product-image-container img-responsive">
+                                    <img  src="/assets/uploads/<%= product.image[2] %>" alt="">
                                 </div>
                                 <!-- <div class="product-image-large-image swiper-slide product-image-container img-responsive">
                                     <img  src="/assets/uploads/<%= product.image[3] %>" alt="">
                                 </div> -->
-
+                                
                             </div>
                         </div>
                         <!-- End Large Image -->
@@ -76,24 +72,27 @@
                                 <div class="product-image-thumb-single swiper-slide">
                                     <!-- <img class="img-fluid" src="assets/images/product/default/home-1/default-1.jpg"
                                         alt=""> -->
-                                    <img class="img-fluid" src="/assets/uploads/<%= product.mainImage %>" alt="">
+                                        <img class="img-fluid" src="/assets/uploads/<%= product.mainImage %>" alt="" >
                                 </div>
                                 <div class="product-image-thumb-single swiper-slide">
-                                    <img class="img-fluid" src="/assets/uploads/<%= product.image[0] %>" alt="">
+                                    <img class="img-fluid" src="/assets/uploads/<%= product.image[0] %>"
+                                        alt="">
                                 </div>
-
+                                
                                 <div class="product-image-thumb-single swiper-slide">
-                                    <img class="img-fluid" src="/assets/uploads/<%= product.image[1] %>" alt="">
+                                    <img class="img-fluid" src="/assets/uploads/<%= product.image[1] %>"
+                                        alt="">
                                 </div>
-
+                                
                                 <div class="product-image-thumb-single swiper-slide">
-                                    <img class="img-fluid" src="/assets/uploads/<%= product.image[2] %>" alt="">
+                                    <img class="img-fluid" src="/assets/uploads/<%= product.image[2] %>"
+                                        alt="">
                                 </div>
                                 <!-- <div class="product-image-thumb-single swiper-slide">
                                     <img class="img-fluid" src="/assets/uploads/<%= product.image[3] %>"
                                         alt="">
                                 </div> -->
-
+                                
                             </div>
                             <!-- Add Arrows -->
                             <div class="gallery-thumb-arrow swiper-button-next"></div>
@@ -111,43 +110,36 @@
 
                         <!-- Start  Product Details Text Area-->
                         <div class="product-details-text">
-                            <h4 class="title">
-                                <%= product.name %>
-                            </h4>
-                            <h6 class="product-ref ">For : <span>
-                                    <%= product.collection %>
-                                </span></h6>
+                            <h4 class="title"><%= product.name %></h4>
+                            <h6 class="product-ref ">For : <span><%= product.collection %></span></h6>
                             <div class="d-flex align-items-center">
                                 <div class="review-star">
                                     <!-- <strong>Rating:</strong> -->
-                                    <% for (let i=1; i <=5; i++) { %>
-                                        <% if (i <=product.rating) { %>
-                                            <!-- <i class=" fill ion-android-star"></i> -->
-                                            <i class="fa fa-star text-warning"></i>
-                                            <% } else { %>
-                                                <!-- <i class=" empty ion-android-star"></i> -->
-                                                <i class="fa fa-star text-muted"></i>
-                                                <% } %>
-                                                    <% } %>
-                                                        <a href="#detailSection" class="customer-review ml-2">(customer
-                                                            review )</a>
-
+                                    <% for (let i = 1; i <= 5; i++) { %>
+                                    <% if (i <= product.rating) { %>
+                                        <!-- <i class=" fill ion-android-star"></i> -->
+                                    <i class="fa fa-star text-warning"></i>
+                                    <% } else { %>
+                                        <!-- <i class=" empty ion-android-star"></i> -->
+                                <i class="fa fa-star text-muted"></i>
+                                    <% } %>
+                                    <% } %>
+                                    <a href="#detailSection" class="customer-review ml-2">(customer review )</a> 
+                                    
                                 </div>
                             </div>
                             <div class="">
                                 <div class="float-left">
-                                    <ins style="text-decoration: none;"><span class="price">₹<%= product.afterDiscount
-                                                %></span></ins>
-                                    <ins style="text-decoration: none;"><span class="text-decoration-line-through"> ₹<%=
-                                                product.price %></span></ins>
-                                    <span class="save-price font-md color3 ml-15" style="color: rgb(7, 150, 7);">
-                                        <%= product.discountPrice %>%off
+                                    <ins style="text-decoration: none;"><span class="price">₹<%= product.afterDiscount  %></span></ins>
+                                    <ins style="text-decoration: none;"><span class="text-decoration-line-through">  ₹<%= product.price %></span></ins>
+                                    <span
+                                         class="save-price font-md color3 ml-15" style="color: rgb(7, 150, 7);"> <%= product.discountPrice %>%off
                                     </span>
 
                                 </div>
                             </div>
-
-
+                            
+                           
                         </div> <!-- End  Product Details Text Area-->
 
 
@@ -158,21 +150,21 @@
                             <h4 class="title">Availability</h4>
                             <!-- Product Variable Single Item -->
                             <div class="variable-single-item">
-                                <% if(product.delete==true){ %>
+                                  <% if(product.delete==true){ %>
                                     <h2 class="font-weight-bold text-danger">NOT AVAILABLE!</h2>
-                                    <p>This item is currently not available</p>
+                                    <p >This item is currently not available</p>
+                                <% } %>
+                                <% if (product.stock>0) { %>
+                                    <div class="product-stock"> <span class="product-stock-in">
+                                        <i class="ion-checkmark-circled"></i></span> IN STOCK</div>
+                                    <% } else { %>
+                                        <h2 class="font-weight-bold text-danger">Sold Out</h2>
+                                        <p >This item is currently out of stock</p>
                                     <% } %>
-                                        <% if (product.stock>0) { %>
-                                            <div class="product-stock"> <span class="product-stock-in">
-                                                    <i class="ion-checkmark-circled"></i></span> IN STOCK</div>
-                                            <% } else { %>
-                                                <h2 class="font-weight-bold text-danger">Sold Out</h2>
-                                                <p>This item is currently out of stock</p>
-                                                <% } %>
-
+                                
                             </div>
                             <!-- Product Variable Single Item -->
-
+                           
 
                             <!-- Product Variable Single Item -->
                             <!-- <div class="variable-single-item">
@@ -187,21 +179,23 @@
                                 </select>
                             </div> -->
                             <!-- Product Variable Single Item -->
-                            <div class="d-flex align-items-center ">
-
+                            <div class="d-flex align-items-center " >
+                            
                                 <div class="product-add-to-cart-btn ">
+                                    
+                                    <button type="button" onclick="addToCart('<%= product._id %>')" 
+                                        class="btn btn-md btn-black-default-hover"
+                                        >+ Add To Cart</button>
 
-                                    <button type="button" onclick="addToCart('<%= product._id %>')"
-                                        class="btn btn-md btn-black-default-hover">+ Add To Cart</button>
-
-
+                                    
                                 </div>
 
                                 <div class="product-add-to-cart-btn ml-2">
-
-                                    <button type="button" onclick="addToWishlist('<%= product._id %>')"
-                                        class="btn-sort btn-md btn-sort"><i class="icon-heart"> </i> Add to
-                                        wishlist </button>
+                                    
+                                    <button type="button"  onclick="addToWishlist('<%= product._id %>')" 
+                                    class="btn-sort btn-md btn-sort"
+                                    ><i class="icon-heart"> </i> Add to
+                                    wishlist </button>
                                 </div>
                                 <div class="variable-single-item ">
                                     <!-- <span>Quantity</span> -->
@@ -209,18 +203,16 @@
                                         <input min="1" max="4" value="1" type="number" id="quantity" hidden>
                                     </div>
                                 </div>
-
+                                
                             </div>
-
+                            
                         </div> <!-- End Product Variable Area -->
 
                         <!-- Start  Product Details Catagories Area-->
-                        <div class="product-details-catagory mb-2">
+                        <div class="product-details-catagory mb-2" >
                             <span class="title">CATEGORY:</span>
                             <ul>
-                                <li><a href="#">
-                                        <%=category.name%>
-                                    </a></li>
+                                <li><a href="#"><%=category.name%></a></li>
                                 <!-- <li><a href="#">Casual</a></li>
                                 <li><a href="#">Shirt</a></li> -->
                             </ul>
@@ -237,9 +229,7 @@
                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                             </ul> -->
-                            <p>
-                                <%= product.description %>
-                            </p>
+                            <p><%= product.description %></p>
                         </div> <!-- End  Product Details Social Area-->
                     </div>
                 </div>
@@ -279,14 +269,12 @@
 
 
                         <!-- Start Product Details Tab Content -->
-                        <div class="product-details-content-tab">
+                        <div class="product-details-content-tab" >
                             <div class="tab-content">
                                 <!-- Start Product Details Tab Content Singel -->
                                 <div class="tab-pane active show" id="description">
                                     <div class="single-tab-content-item">
-                                        <p>
-                                            <%= product.description %>
-                                        </p>
+                                         <p><%= product.description %></p>
                                         <p>Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem,
                                             quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies
                                             massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero
@@ -304,20 +292,14 @@
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">For</th>
-                                                    <td>
-                                                        <%=product.collection%>
-                                                    </td>
+                                                    <td><%=product.collection%></td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Category</th>
-                                                    <td>
-                                                        <%=category.name%>
-                                                    </td>
+                                                    <td><%=category.name%></td>
                                                 <tr>
                                                     <th scope="row">Cloth</th>
-                                                    <td>
-                                                        <%=product.cloth%>
-                                                    </td>
+                                                    <td><%=product.cloth%></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -336,60 +318,54 @@
                                     <div class="single-tab-content-item">
                                         <% if (review==false) { %>
                                             <p>No user reviews found</p>
-                                            <% } else { %>
-                                                <!-- Start - Review Comment -->
-                                                <% review?.forEach((item,index)=>{ %>
-                                                    <ul class="comment">
-                                                        <!-- Start - Review Comment list-->
-                                                        <li class="comment-list">
+                                         <% } else { %>
+                                        <!-- Start - Review Comment -->
+                                        <% review?.forEach((item,index) =>{ %>
+                                        <ul class="comment">
+                                            <!-- Start - Review Comment list-->
+                                            <li class="comment-list">
+                                                
+                                                <div class="comment-wrapper">
+                                                    <div class="comment-img">
+                                                        <img src="<%= item.image%>" alt="">
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <div class="comment-content-top">
+                                                            <div class="comment-content-left">
+                                                                <h6 class="comment-name"><%= item.name%></h6>
+                                                                 <div class="review-star">
+                                                                        <!-- <strong>Rating:</strong> -->
+                                                                        <% for (let i = 1; i <= 5; i++) { %>
+                                                                        <% if (i <= item.rating) { %>
+                                                                            <!-- <i class=" fill ion-android-star"></i> -->
+                                                                        <i class="fa fa-star text-warning"></i>
+                                                                        <% } else { %>
+                                                                            <!-- <i class=" empty ion-android-star"></i> -->
+                                                                    <i class="fa fa-star text-muted"></i>
+                                                                        <% } %>
+                                                                        <% } %>
 
-                                                            <div class="comment-wrapper">
-                                                                <div class="comment-img">
-                                                                    <img src="<%= item.image%>" alt="">
-                                                                </div>
-                                                                <div class="comment-content">
-                                                                    <div class="comment-content-top">
-                                                                        <div class="comment-content-left">
-                                                                            <h6 class="comment-name">
-                                                                                <%= item.name%>
-                                                                            </h6>
-                                                                            <div class="review-star">
-                                                                                <!-- <strong>Rating:</strong> -->
-                                                                                <% for (let i=1; i <=5; i++) { %>
-                                                                                    <% if (i <=item.rating) { %>
-                                                                                        <!-- <i class=" fill ion-android-star"></i> -->
-                                                                                        <i
-                                                                                            class="fa fa-star text-warning"></i>
-                                                                                        <% } else { %>
-                                                                                            <!-- <i class=" empty ion-android-star"></i> -->
-                                                                                            <i
-                                                                                                class="fa fa-star text-muted"></i>
-                                                                                            <% } %>
-                                                                                                <% } %>
-
-
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- <div class="comment-content-right">
+                                                                        
+                                                                        
+                                                                    </div>
+                                                            </div>
+                                                            <!-- <div class="comment-content-right">
                                                                 <a href="#"><i class="fa fa-reply"></i>Reply</a>
                                                             </div> -->
-                                                                    </div>
+                                                        </div>
 
-                                                                    <div class="para-content">
-                                                                        <p>
-                                                                            <%= item.reviewText%>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul> <!-- End - Review Comment -->
-                                                    <hr>
+                                                        <div class="para-content">
+                                                            <p><%= item.reviewText%> </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul> <!-- End - Review Comment -->
+                                        <hr>
 
-                                                    <% }); %>
+                                        <% }); %>
 
-                                                        <% } %>
+                                        <% } %>                                     
                                     </div>
                                 </div> <!-- End Product Details Tab Content Singel -->
                             </div>
@@ -433,62 +409,56 @@
                                 <div class="swiper-wrapper">
                                     <!-- End Product Default Single Item -->
                                     <!-- Start Product Default Single Item -->
-                                    <% const productId=product._id.toString(); %>
-                                        <% relatedProducts?.forEach((item,index)=>{ %>
+                                    <% const productId = product._id.toString(); %>
+                                    <% relatedProducts?.forEach((item,index) =>{ %>
+                                        
+                                        <% if (item._id.toString() !==productId) { %>
+                                    <div class="product-default-single-item product-color--golden swiper-slide">
+                                        <div class="image-box">
+                                            <a href="productDetails?productId=<%= item._id %>" class="image-link">
+                                                <img class="default-img" src="/assets/uploads/<%= item.mainImage %>" alt="" 
+                                                >
+                                                <!-- <img src="assets/images/product/default/home-1/default-9.jpg" alt=""> -->
+                                                <img src="/assets/uploads/<%= item.image[0] %>"  alt="">
+                                            </a>
 
-                                            <% if (item._id.toString() !==productId) { %>
-                                                <div
-                                                    class="product-default-single-item product-color--golden swiper-slide">
-                                                    <div class="image-box">
-                                                        <a href="productDetails?productId=<%= item._id %>"
-                                                            class="image-link">
-                                                            <img class="default-img"
-                                                                src="/assets/uploads/<%= item.mainImage %>" alt="">
-                                                            <!-- <img src="assets/images/product/default/home-1/default-9.jpg" alt=""> -->
-                                                            <img src="/assets/uploads/<%= item.image[0] %>" alt="">
-                                                        </a>
-
-                                                        <!-- <div class="tag">
+                                            <!-- <div class="tag">
                                                 <% if (item.stock<=0) { %>
                                                 <span style="color: black; background-color: rgb(253, 128, 128);">Out of Stock</span>
                                                 <% } else { %>
                                                     <span><%= item.discountPrice%>% off</span>
                                                 <% } %>
                                             </div> -->
-
-                                                    </div>
-                                                    <div class="content">
-                                                        <div class="content-left">
-                                                            <h6 class="title"><a
-                                                                    href="productDetails?productId=<%= item._id %>">
-                                                                    <%=item.name%>
-                                                                </a></h6>
-                                                            <div class="review-star">
-                                                                <!-- <strong>Rating:</strong> -->
-                                                                <% for (let i=1; i <=5; i++) { %>
-                                                                    <% if (i <=item.rating) { %>
-                                                                        <!-- <i class=" fill ion-android-star"></i> -->
-                                                                        <i class="fa fa-star text-warning"></i>
-                                                                        <% } else { %>
-                                                                            <!-- <i class=" empty ion-android-star"></i> -->
-                                                                            <i class="fa fa-star text-muted"></i>
-                                                                            <% } %>
-                                                                                <% } %>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="content-right">
-                                                            <span class="price font-weight-bold">₹<%=
-                                                                    item.afterDiscount%></span>
-                                                        </div>
-
-                                                    </div>
+                                            
+                                        </div>
+                                        <div class="content">
+                                            <div class="content-left">
+                                                <h6 class="title"><a href= "productDetails?productId=<%= item._id %>"><%=item.name%></a></h6>
+                                                <div class="review-star">
+                                                    <!-- <strong>Rating:</strong> -->
+                                                    <% for (let i = 1; i <= 5; i++) { %>
+                                                    <% if (i <= item.rating) { %>
+                                                        <!-- <i class=" fill ion-android-star"></i> -->
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <% } else { %>
+                                                        <!-- <i class=" empty ion-android-star"></i> -->
+                                                <i class="fa fa-star text-muted"></i>
+                                                    <% } %>
+                                                    <% } %>
+                                                    
                                                 </div>
-                                                <% }; %>
-                                                    <% }); %>
-                                                        <!-- End Product Default Single Item -->
+                                            </div>
+                                            <div class="content-right">
+                                                <span class="price font-weight-bold">₹<%= item.afterDiscount%></span>
+                                            </div>
 
-
+                                        </div>
+                                    </div>
+                                    <% }; %>
+                                    <% }); %>
+                                    <!-- End Product Default Single Item -->
+                                   
+                                    
                                 </div>
                             </div>
                             <!-- If we need navigation buttons -->
@@ -504,77 +474,77 @@
 
 
     <script>
-
-
+        
+       
         // Cart
         async function addToCart(productId) {
-            console.log(productId);
-            try {
-                const quantity = document.getElementById('quantity').value
-                const response = await axios.post('/cart', { productId, quantity });
-                console.log(response);
-                if (response.data.success) {
-                    await Swal.fire({
-                        icon: "success",
-                        title: "Success",
-                        text: response.data.message,
+			console.log(productId);
+			try {
+                const quantity=document.getElementById('quantity').value
+				const response = await axios.post('/cart', { productId, quantity });
+				console.log(response);
+				if (response.data.success) {
+					await Swal.fire({
+						icon: "success",
+						title: "Success",
+						text: response.data.message,
                         customClass: {
                             confirmButton: 'sweetAlert-custom-button'
-                        }
-                    })
-                } else {
-                    await Swal.fire({
-                        icon: "error",
-                        title: "Sorry",
-                        text: response.data.message,
+                         }
+					})
+				} else {
+					await Swal.fire({
+						icon: "error",
+						title: "Sorry",
+						text: response.data.message,
                         customClass: {
                             confirmButton: 'sweetAlert-custom-button'
-                        }
-                    })
-
-                }
-            } catch (error) {
-                console.error("Error occurred:", error);
-            }
-        }
+                         }
+					})
+					
+				}
+			} catch (error) {
+				console.error("Error occurred:", error);
+			}
+		}
 
 
         // Wishlist
         async function addToWishlist(productId) {
-            console.log(productId);
-            try {
-
-                const response = await axios.post('/wishlist', { productId });
-                console.log(response);
-                if (response.data.success) {
-                    await Swal.fire({
-                        icon: "success",
-                        title: "Success",
-                        text: response.data.message,
+			console.log(productId);
+			try {
+                
+				const response = await axios.post('/wishlist', { productId });
+				console.log(response);
+				if (response.data.success) {
+					await Swal.fire({
+						icon: "success",
+						title: "Success",
+						text: response.data.message,
                         customClass: {
                             confirmButton: 'sweetAlert-custom-button'
-                        }
-                    })
-                } else {
-                    await Swal.fire({
-                        icon: "error",
-                        title: "Sorry",
-                        text: response.data.message,
+                         }
+					})
+				} else {
+					await Swal.fire({
+						icon: "error",
+						title: "Sorry",
+						text: response.data.message,
                         customClass: {
                             confirmButton: 'sweetAlert-custom-button'
-                        }
-                    })
-
-                }
-            } catch (error) {
-                console.error("Error occurred:", error);
-            }
-        }
-
+                         }
+					})
+					
+				}
+			} catch (error) {
+				console.error("Error occurred:", error);
+			}
+		}
+    
     </script>
+    
 
+    
 
-
-
-
+    
     <%- include('userFooter.ejs') %>
