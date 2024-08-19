@@ -352,6 +352,21 @@ const adminLogout = async (req, res) => {
   })
 }
 
+// salesReport Page
+const salesReportPage = async (req,res) =>{
+  try{
+    const {type}= req.query;
+    let salesData = null;
+    const dateRange = req.query.type === 'specific' ? null : (req.query.type === 'daily' ? 1 : req.query.type === 'weekly' ? 7 : req.query.type === 'monthly' ? 30 : 365);
+    const specificDate = req.query.type === 'specific' ? req.query.date : null;
+
+    salesData = await salesReport(dateRange, specificDate);
+
+    res.render('admin/salesReport.ejs',{type,salesData});
+  }catch(err){
+    console.log(err);
+  }
+}
 
 
 //User managent
@@ -1077,6 +1092,7 @@ module.exports = {
   adminLogin,
   verifyAdminLogin,
   adminHome,
+  salesReportPage,
   forgetPassword,
   adminLogout,
   userDetails,

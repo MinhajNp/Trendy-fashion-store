@@ -13,6 +13,7 @@ router.post('/adminLogin', admin.verifyAdminLogin)
 
 //------------------------------------------------admin home page------------------------------------------------
 router.get('/adminPanel', auth.isLogin, admin.adminHome)
+router.get('/salesReportPage',admin.salesReportPage)
 router.get('/pdf', admin.downloadPdf)                               //admin home page
 
 

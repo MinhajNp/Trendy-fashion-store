@@ -171,12 +171,20 @@
                                                 <p><strong>Discount Amount:</strong> ₹<%= coupon.discount %> </p>
                                                 <p><strong>Validity Till:</strong> <%= coupon.validity.toDateString() %></p>
                                                 <p><strong>Condition:</strong>You need to purchase above ₹<%= coupon.limit %> to apply this coupon</p>
-                                                <button class="btn btn-md btn-golden" <% if (allTotalDiscountPrice < coupon.limit ) { %> disabled <% } %> onclick="confirmApplyCoupon('<%= coupon._id %>')">Apply Coupon</button>
-
+                                                <button class="btn btn-md btn-golden" 
+                                                <% if (allTotalDiscountPrice < coupon.limit || user.usedCoupon.includes(coupon._id.toString())) { %> 
+                                                  disabled 
+                                                <% } %> 
+                                                onclick="confirmApplyCoupon('<%= coupon._id %>')">
+                                                Apply Coupon
+                                              </button>
                                             </div>
-                                            <% if (allTotalDiscountPrice < coupon.limit) { %>
-                                                <p style="color: red;">Cannot apply coupon. You need to Purchase above ₹ <%= coupon.limit %> to apply this coupon.</p>
-                                            <% } %>
+                                            <% if (user.usedCoupon.includes(coupon._id.toString())) { %>
+                                                <p style="color: red;">This coupon already used</p>
+                                              <% } else if (allTotalDiscountPrice < coupon.limit) { %>
+                                                <p style="color: red;">Cannot apply coupon. You need to purchase above ₹ <%= coupon.limit %> to apply this coupon.</p>
+                                              <% } %>
+                                              
                                         </div>
                                     </div>
                                 </div>

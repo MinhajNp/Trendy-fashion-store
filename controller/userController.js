@@ -1334,6 +1334,13 @@ const postCheckout = async (req, res) => {
       discount = appliedCoupon.discount;
       limit = appliedCoupon.limit;
       allTotalFinalPrice -= discount;
+
+      // updating user id in coupon to make that user not use again
+      await User.findOneAndUpdate(
+        { _id: user._id },
+        { $addToSet: { usedCoupon: couponId } }
+      );
+
     }
 
 

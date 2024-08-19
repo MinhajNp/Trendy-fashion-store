@@ -1,0 +1,207 @@
+
+
+
+
+
+
+ <%- include('adminHeader.ejs')%>
+ <style>
+    table {
+      width: 50%;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .description {
+      font-weight: bold;
+    }
+  </style>
+
+
+    <body>
+        <div class="screen-overlay"></div>
+        <aside class="navbar-aside" id="offcanvas_aside">
+            <div class="aside-top">
+                <a href="/" class="brand-wrap">
+                    <h1>TRENDY</h1>
+                </a>
+                <div>
+                    <button class="btn btn-icon btn-aside-minimize"> <i
+                            class="text-muted material-icons md-menu_open"></i> </button>
+                </div>
+            </div>
+            <nav>
+                <ul class="menu-aside">
+                    <li class="menu-item active">
+                        <a class="menu-link" href="/adminPanel"> <i class="icon material-icons md-home"></i>
+                            <span class="text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="menu-item ">
+                        <a class="menu-link" href="/adminProducts"> <i class="icon material-icons md-shopping_bag"></i>
+                            <span class="text">Product Management</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a class="menu-link" href="/users"> <i class="icon material-icons md-person"></i>
+                            <span class="text">User Management</span>
+                        </a>
+
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link" href="/adminCategory"> <i class="icon material-icons md-stars"></i>
+                            <span class="text">Category Management</span> </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a class="menu-link" href="/adminOrders"> <i class="icon material-icons md-shopping_cart"></i>
+                            <span class="text">Order Management</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item ">
+                        <a class="menu-link" href="/adminCoupon"> <i class="icon material-icons md-redeem"></i>
+                            <span class="text">Coupons</span>
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- <li class="menu-item">
+                        <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
+                            <span class="text">Reviews</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
+                            <span class="text">Banner Management</span>
+                        </a>
+                    </li> -->
+                </ul>
+                <hr>
+                <!-- <ul class="menu-aside">
+                    <li class="menu-item">
+                        <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
+                            <span class="text">Settings</span>
+                        </a>
+
+                    </li>
+
+                </ul> -->
+                <br>
+                <br>
+            </nav>
+        </aside>
+        <main class="main-wrap">
+            <header class="main-header navbar">
+                <div class="col-search">
+                    <form class="searchform">
+                        <!-- <div class="input-group">
+                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                        <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                    </div>
+                    <datalist id="search_terms">
+                        <option value="Products">
+                        <option value="New orders">
+                        <option value="Apple iphone">
+                        <option value="Ahmed Hassan">
+                    </datalist>
+                </form> -->
+                </div>
+                <div class="col-nav">
+                    <a class="dropdown-item text-danger" href="/adminLogout"><i
+                            class="material-icons md-exit_to_app"></i>Logout</a>
+
+                </div>
+            </header>
+
+
+            <section class="content-main">
+                <div class="content-header">
+                    <div>
+                        <!-- <h2 class="content-title card-title">Sales Report </h2>
+                        <p>All</p> -->
+                    </div>
+                    <!-- <div>
+                    <input type="text" placeholder="Search order ID" class="form-control bg-white">
+                </div> -->
+                </div>
+                <div class="card mb-4">
+                    <header class="card-header">
+                        <div class="row gx-3">
+                            <a href="/pdf/?type=<%=type%>" class="btn btn-md btn-primary"download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>Download
+                                report</a>
+                        </div>
+                    </header> <!-- card-header end// -->
+                    <div class="container">
+                        <h1 style="text-align: center;">Sales Report</h1>
+                        <p style="text-align: center;">Report Type: <%= type %></p>
+                    
+                        <table>
+                          <tr>
+                            <th>Description</th>
+                            <th>Value</th>
+                          </tr>
+                          <tr>
+                            <td class="description">Total Revenue</td>
+                            <td>INR <%= salesData.totalRevenue.toFixed(2) %></td>
+                          </tr>
+                          <tr>
+                            <td class="description">Total Orders</td>
+                            <td><%= salesData.totalOrderCount %></td>
+                          </tr>
+                          <tr>
+                            <td class="description">Total Products Available</td>
+                            <td><%= salesData.productCount %></td>
+                          </tr>
+                          <tr>
+                            <td class="description">Average Sales</td>
+                            <td><%= (salesData.averageSales * 100).toFixed(2) %>%</td>
+                          </tr>
+                          <tr>
+                            <td class="description">Average Revenue</td>
+                            <td>INR <%= salesData.averageRevenue.toFixed(2) %></td>
+                          </tr>
+                          <tr>
+                            <td class="description">Total Coupon Discount</td>
+                            <td>INR <%= salesData.totalCouponDiscount.toFixed(2) %></td>
+                          </tr>
+                          <tr>
+                            <td class="description">Monthly Revenue</td>
+                            <td>INR <%= (salesData.totalRevenue / 12).toFixed(2) %></td> <!-- Assuming you calculate monthly revenue this way -->
+                          </tr>
+                        </table>
+                      </div>
+                </div> <!-- card end// -->
+                
+            </section> <!-- content-main end// -->
+
+
+
+            <!-- =============================================================================================================== -->
+
+
+
+
+
+
+
+
+
+            <%- include('adminFooter.ejs')%>

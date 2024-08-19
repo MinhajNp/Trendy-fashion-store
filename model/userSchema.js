@@ -33,7 +33,6 @@ const addressSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
 });
 
 const walletHistorySchema = new mongoose.Schema({
@@ -106,7 +105,12 @@ const userSchema = new mongoose.Schema({
     coupon: {
         type: String,
         default: "not found"
+    },
+    usedCoupon:[{
+        type:String,
+        default:null
     }
+    ],
 }, { timestamps: true })
 
 const UserModel = mongoose.model("users", userSchema)

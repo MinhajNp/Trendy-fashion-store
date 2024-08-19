@@ -40,7 +40,10 @@
                                         Cancelation Reason: <%=order.cancelReason%>
                                     <% } %>
                                 </p>
-                                <a class="btn btn-md btn-black-default-hover" href="/downloadOrderInvoice?orderId=<%=order._id%>" >download invoice</a>
+                                <% if (order.orderStatus=="Delivered") { %>
+                                    <a class="btn btn-md btn-black-default-hover" href="/downloadOrderInvoice?orderId=<%=order._id%>" >download invoice</a>
+                                <% } %>
+                               
                                 
                             </div>
                         </article>

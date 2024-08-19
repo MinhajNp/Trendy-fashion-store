@@ -180,15 +180,15 @@
         </div>
     </div>
     <div class="mb-4 d-flex justify-content-evenly">
-        <a href="/pdf/?type=daily" class="btn btn-md btn-primary" download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>Daily
+        <a href="/salesReportPage?type=daily" class="btn btn-md btn-primary"><i class="text-muted material-icons md-post_add"></i>Daily
                 report</a>
-        <a href="/pdf/?type=weekly" class="btn btn-md btn-primary" download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>Weekly
+        <a href="/salesReportPage?type=weekly" class="btn btn-md btn-primary"><i class="text-muted material-icons md-post_add"></i>Weekly
                  report</a>            
-        <a href="/pdf/?type=monthly" class="btn btn-md btn-primary"download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>Monthly
+        <a href="/salesReportPage?type=monthly" class="btn btn-md btn-primary"><i class="text-muted material-icons md-post_add"></i>Monthly
                   report</a>
-        <a href="/pdf/?type=yearly" class="btn btn-md btn-primary" download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>Yearly
+        <a href="/salesReportPage?type=yearly" class="btn btn-md btn-primary"><i class="text-muted material-icons md-post_add"></i>Yearly
                   report</a>
-
+                 
                   <form id="reportForm">
                     <div class="form-group">
                         <button type="submit" class="btn btn-md btn-primary" download="sales_report.pdf"><i class="text-muted material-icons md-post_add"></i>specific date
@@ -393,7 +393,7 @@
       }
 
       // Create a URL with query parameters
-      const url = `/pdf?type=specific&date=${encodeURIComponent(date)}`;
+      const url = `/salesReportPage?type=specific&date=${encodeURIComponent(date)}`;
       
       // Trigger the download
       window.open(url, '_blank');
